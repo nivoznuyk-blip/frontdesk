@@ -24,7 +24,7 @@ export function AppShell() {
 
           <main className="min-h-0 flex-1 overflow-y-auto">
             <AnimatePresence mode="wait" initial={false}>
-              <motion.div key={location.pathname} {...routeMotion} className="p-6">
+              <motion.div key={location.pathname} {...routeMotion} className="h-full p-6">
                 <Outlet />
               </motion.div>
             </AnimatePresence>

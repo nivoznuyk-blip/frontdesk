@@ -22,6 +22,8 @@ export default {
       'on-amber': 'var(--on-amber)',
       cite: 'var(--cite)',
       'cite-wash': 'var(--cite-wash)',
+      // DESIGN.md §6: the citation chip border is --cite at 30%. Derived, not a new colour.
+      'cite-edge': 'color-mix(in srgb, var(--cite) 30%, transparent)',
       success: 'var(--success)',
       'success-wash': 'var(--success-wash)',
       danger: 'var(--danger)',
@@ -50,9 +52,29 @@ export default {
       16: '64px', 24: '96px', 32: '128px',
     },
     extend: {
-      maxWidth: { container: '1180px' },
+      maxWidth: {
+        container: '1180px',
+        measure: '65ch',
+        control: '320px',
+        bubble: '80%',
+      },
+      width: {
+        sidebar: '220px',
+        context: '320px',
+        caret: '7px',
+      },
+      height: {
+        switch: '20px',
+      },
+      translate: {
+        switch: '14px',
+      },
+      scale: {
+        press: '0.985',
+      },
       transitionTimingFunction: { std: 'var(--ease)' },
       transitionDuration: { fast: '120ms', base: '180ms', slow: '260ms' },
+      transitionProperty: { 'transform-color': 'transform, background-color' },
       keyframes: {
         blink: { '0%,49%': { opacity: '1' }, '50%,100%': { opacity: '0' } },
         shimmer: { '100%': { transform: 'translateX(100%)' } },

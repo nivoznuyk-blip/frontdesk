@@ -74,7 +74,7 @@ export default function KitchenSink() {
         <header className="flex flex-col gap-2">
           <span className="font-mono text-micro text-amber-dim">layer 01</span>
           <h1 className="text-h1 font-medium">Kitchen sink</h1>
-          <p className="max-w-[65ch] text-dim">
+          <p className="max-w-measure text-dim">
             Every primitive in every state. Nothing ships until this page reads as one system.
           </p>
         </header>

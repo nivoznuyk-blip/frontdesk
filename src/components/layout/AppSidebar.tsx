@@ -13,7 +13,7 @@ const sections = [
 
 export function AppSidebar() {
   return (
-    <aside className="flex w-[220px] shrink-0 flex-col border-r border-line">
+    <aside className="flex w-sidebar shrink-0 flex-col border-r border-line">
       <div className="flex h-11 shrink-0 items-center border-b border-line px-4">
         <Link to="/" className="font-mono text-sm text-text">
           frontdesk<span className="text-amber-dim">_</span>

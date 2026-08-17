@@ -27,7 +27,7 @@ export function LogLine({ entries, className }: { entries: LogEntry[]; className
       <span className="text-amber-dim">frontdesk</span>
       <span className="tnum">{latest?.time ?? now}</span>
       <span className="truncate text-dim">{latest?.message ?? 'idle'}</span>
-      <span className="ml-auto h-3 w-[7px] animate-blink bg-amber-dim" aria-hidden />
+      <span className="ml-auto h-3 w-caret animate-blink bg-amber-dim" aria-hidden />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Container } from './Container';
 
 const columns = [
   {
@@ -25,7 +26,7 @@ const columns = [
 export function MarketingFooter() {
   return (
     <footer className="border-t border-line">
-      <div className="mx-auto flex max-w-container flex-col gap-12 px-6 py-16">
+      <Container className="flex flex-col gap-12 py-16">
         <div className="flex flex-col gap-12 sm:flex-row sm:gap-24">
           <Link to="/" className="font-mono text-sm text-text">
             frontdesk<span className="text-amber-dim">_</span>
@@ -50,7 +51,7 @@ export function MarketingFooter() {
         </div>
 
         <div className="flex flex-col gap-4 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-[65ch] text-sm text-faint">
+          <p className="max-w-measure text-sm text-faint">
             The Powered by Frontdesk badge stays on the free plan. Starter and Growth remove it.
           </p>
           <span className="flex items-center gap-2 font-mono text-micro text-faint">
@@ -58,7 +59,7 @@ export function MarketingFooter() {
             all systems normal
           </span>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

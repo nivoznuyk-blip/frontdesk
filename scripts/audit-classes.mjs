@@ -78,11 +78,18 @@ const utility = new RegExp(
 );
 
 const suspects = new Map();
+const arbitrary = new Map();
 for (const file of files) {
   readFileSync(file, 'utf8').split('\n').forEach((line, i) => {
     if (/^\s*(?:import|export)\b.*\bfrom\b/.test(line)) return; // module specifiers
     for (const m of line.matchAll(/'([^'\n]*)'|"([^"\n]*)"|`([^`\n]*)`/g)) {
       for (const token of (m[1] ?? m[2] ?? m[3] ?? '').split(/\s+/)) {
+        // Arbitrary values bypass the scales in tailwind.config.ts, so they emit
+        // fine and this audit would otherwise never see them. Name them instead.
+        if (utility.test(token) && /-\[[^\]]+\]/.test(token)) {
+          if (!arbitrary.has(token)) arbitrary.set(token, new Set());
+          arbitrary.get(token).add(`${file.replace(root, '')}:${i + 1}`);
+        }
         if (!token || emitted.has(token)) continue;
         if (!/^[a-z0-9:[\]/.,%#()_-]+$/i.test(token)) continue;
         if (!(all ? /[-[]/.test(token) : utility.test(token))) continue;
@@ -95,17 +102,25 @@ for (const file of files) {
 
 // ---- 3. report ----
 
-if (suspects.size === 0) {
-  console.log('audit-classes: no dead classes in src/');
-  process.exit(0);
+const list = (entries) => {
+  for (const [token, where] of [...entries].sort()) {
+    console.log(`  ${token.padEnd(30)} ${[...where].join(', ')}`);
+  }
+};
+
+if (suspects.size === 0) console.log('audit-classes: no dead classes in src/');
+else {
+  console.log(`audit-classes: ${suspects.size} token(s) with no matching rule\n`);
+  list(suspects);
+  console.log(
+    '\nNot every line is a bug — a plain string that happens to look like a class' +
+    '\n(a filename, a label, a mock value) lands here too. Check each against' +
+    '\nthe scales in tailwind.config.ts before changing anything.',
+  );
 }
 
-console.log(`audit-classes: ${suspects.size} token(s) with no matching rule\n`);
-for (const [token, where] of [...suspects].sort()) {
-  console.log(`  ${token.padEnd(30)} ${[...where].join(', ')}`);
+if (arbitrary.size > 0) {
+  console.log(`\naudit-classes: ${arbitrary.size} arbitrary value(s) in markup\n`);
+  list(arbitrary);
+  console.log('\nGive each one a name in tailwind.config.ts, the way max-w-container has one.');
 }
-console.log(
-  '\nNot every line is a bug — a plain string that happens to look like a class' +
-  '\n(a filename, a label, a mock value) lands here too. Check each against' +
-  '\nthe scales in tailwind.config.ts before changing anything.',
-);

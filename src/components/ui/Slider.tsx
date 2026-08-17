@@ -21,7 +21,7 @@ export function Slider({
   const id = useId();
 
   return (
-    <div className="flex max-w-[320px] flex-col gap-2">
+    <div className="flex max-w-control flex-col gap-2">
       <div className="flex items-baseline justify-between">
         <label htmlFor={id} className="font-mono text-micro text-faint">
           {label}

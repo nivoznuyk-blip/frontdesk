@@ -8,7 +8,7 @@ export function PageStub({ title, children }: { title: string; children: ReactNo
   return (
     <section className="flex flex-col gap-2">
       <h1 className="text-h2 font-medium">{title}</h1>
-      <p className="max-w-[65ch] text-dim">{children}</p>
+      <p className="max-w-measure text-dim">{children}</p>
     </section>
   );
 }
