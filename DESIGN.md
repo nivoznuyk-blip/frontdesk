@@ -72,9 +72,11 @@ Rules:
 Two families, self-hosted in `public/fonts` as woff2 with `font-display: swap`. Never load from Google Fonts — GitHub Pages should serve everything.
 
 - **Satoshi** — interface and display. Free from Fontshare.
-- **Geist Mono** — all data, metadata, labels, code, timestamps, counts, IDs, statuses. Free from Vercel.
+- **Geist Mono** — data, metadata, code, timestamps, counts, IDs, statuses, and the labels on data fields. Free from Vercel.
 
 The monospace is not just for code blocks. It is the signal that this is an instrument. Any number a user reads is monospace.
+
+The exception is prose. A field someone writes sentences into — a greeting, a corrected answer — is labelled in Satoshi, sentence case. Monospace labels a reading; the interface font labels a piece of writing.
 
 Scale, in px:
 
@@ -113,7 +115,9 @@ Content container: 1180px. Landing sections have 96px vertical padding on deskto
 - Ghost: transparent, no border, `--text-dim`. Hover `--text`.
 - Active state on all: `transform: scale(0.985)`.
 
-**Input** — height 36px, `--surface` background, 1px `--border`, radius 4. Focus: border becomes `--amber-dim` plus a 1px inset ring. Placeholder in `--text-faint`, and it is always a real example, never a repeat of the label.
+**Input** — height 36px, `--surface` background, 1px `--border`, radius 4. Focus: border becomes `--amber-dim` plus a 1px inset ring. Placeholder in `--text-faint`.
+
+The placeholder follows the field. A short data field — url, email, name — takes a real example and never a repeat of the label: `docs.yourcompany.com`, not `Enter a URL`. A free text field takes an invitation to write, because no single example fits every case, and a concrete one either contradicts the context it appears in or repeats a suggestion already on screen.
 
 **Panel** — `--surface`, 1px `--border`, radius 6, padding 16 or 24. No shadow. Panels do not nest more than one deep.
 
