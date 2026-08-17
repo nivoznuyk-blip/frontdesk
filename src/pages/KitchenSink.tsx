@@ -69,8 +69,8 @@ export default function KitchenSink() {
   const toast = useToast();
 
   return (
-    <div className="min-h-screen w-full pb-24">
-      <div className="mx-auto flex w-full max-w-container flex-col gap-16 px-6 py-16">
+    <div className="min-h-screen pb-24">
+      <div className="mx-auto flex max-w-container flex-col gap-16 px-6 py-16">
         <header className="flex flex-col gap-2">
           <span className="font-mono text-micro text-amber-dim">layer 01</span>
           <h1 className="text-h1 font-medium">Kitchen sink</h1>

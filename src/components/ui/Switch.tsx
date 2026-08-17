@@ -32,16 +32,16 @@ export function Switch({
         disabled={disabled}
         onClick={() => onChange(!checked)}
         className={cn(
-          'relative h-6 w-11 shrink-0 rounded-sm border transition-colors duration-fast ease-std',
+          'relative h-[20px] w-9 shrink-0 rounded-sm border transition-colors duration-fast ease-std',
           checked ? 'border-amber-dim bg-amber-wash' : 'border-line bg-surface',
           disabled && 'opacity-40 pointer-events-none',
         )}
       >
         <span
           className={cn(
-            'absolute left-1 top-1/2 h-4 w-4 -translate-y-1/2 rounded-sm',
+            'absolute left-1 top-1/2 h-3 w-3 -translate-y-1/2 rounded-sm',
             'transition-[transform,background-color] duration-fast ease-std',
-            checked ? 'translate-x-[18px] bg-amber' : 'translate-x-0 bg-faint',
+            checked ? 'translate-x-[14px] bg-amber' : 'translate-x-0 bg-faint',
           )}
         />
       </button>
