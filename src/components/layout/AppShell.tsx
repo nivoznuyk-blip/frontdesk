@@ -4,11 +4,13 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { AppSidebar } from './AppSidebar';
 import { LogLine } from './LogLine';
 import { useRouteMotion } from '@/lib/motion';
+import { useLog } from '@/store/log';
 
 export function AppShell() {
   const location = useLocation();
   const routeMotion = useRouteMotion();
   const mainRef = useRef<HTMLElement>(null);
+  const entries = useLog((state) => state.entries);
 
   // A new screen starts at its own top, never where the last one was scrolled to.
   useEffect(() => {
@@ -39,7 +41,7 @@ export function AppShell() {
         </div>
       </div>
 
-      <LogLine entries={[]} className="shrink-0" />
+      <LogLine entries={entries} className="shrink-0" />
     </div>
   );
 }
