@@ -5,7 +5,7 @@ import {
   Switch, Table, Tabs, Textarea, Tooltip, useToast,
 } from '@/components/ui';
 import type { Column } from '@/components/ui';
-import { LogLine } from '@/components/LogLine';
+import { LogLine } from '@/components/layout/LogLine';
 import { count } from '@/lib/format';
 
 interface Source {
