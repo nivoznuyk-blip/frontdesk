@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Outlet, useLocation } from 'react-router-dom';
 import { AppSidebar } from './AppSidebar';
@@ -7,6 +8,12 @@ import { useRouteMotion } from '@/lib/motion';
 export function AppShell() {
   const location = useLocation();
   const routeMotion = useRouteMotion();
+  const mainRef = useRef<HTMLElement>(null);
+
+  // A new screen starts at its own top, never where the last one was scrolled to.
+  useEffect(() => {
+    mainRef.current?.scrollTo({ top: 0 });
+  }, [location.pathname]);
 
   return (
     <div className="flex h-screen flex-col">
@@ -22,9 +29,9 @@ export function AppShell() {
             </span>
           </header>
 
-          <main className="min-h-0 flex-1 overflow-y-auto">
+          <main ref={mainRef} className="min-h-0 flex-1 overflow-y-auto">
             <AnimatePresence mode="wait" initial={false}>
-              <motion.div key={location.pathname} {...routeMotion} className="h-full p-6">
+              <motion.div key={location.pathname} {...routeMotion} className="flex min-h-full flex-col p-6">
                 <Outlet />
               </motion.div>
             </AnimatePresence>

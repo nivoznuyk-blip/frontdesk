@@ -63,7 +63,6 @@ export default function Sources() {
   const used = indexedPages(sources);
   const extract = sources.find((s) => s.id === extractId);
   const doomed = sources.find((s) => s.id === deleteId);
-  const failures = sources.filter((s) => s.status === 'failed');
 
   /** True when the pages would not fit, and the paywall takes over instead. */
   function overCap(pages: number) {
@@ -218,7 +217,14 @@ export default function Sources() {
     {
       key: 'name',
       header: 'source',
-      render: (row) => <span className="truncate font-mono text-sm">{row.name}</span>,
+      render: (row) => (
+        <span className="flex items-baseline gap-3">
+          <span className="truncate font-mono text-sm">{row.name}</span>
+          {row.status === 'failed' && (
+            <span className="shrink-0 font-mono text-micro text-danger">needs a fix</span>
+          )}
+        </span>
+      ),
     },
     {
       key: 'pages',
@@ -258,18 +264,26 @@ export default function Sources() {
       width: '124px',
       render: (row) => (
         <div className="flex items-center justify-end gap-px">
-          <Button size="sm" variant="ghost" aria-label={`Reindex ${row.name}`} onClick={() => reindex(row)}>
+          <Button size="sm" variant="ghost" aria-label={`Reindex ${row.name}`} onClick={(e) => { e.stopPropagation(); reindex(row); }}>
             <RefreshCw size={14} aria-hidden />
           </Button>
           <Button
             size="sm"
             variant="ghost"
             aria-label={`View the text extracted from ${row.name}`}
-            onClick={() => setExtractId(extractId === row.id ? null : row.id)}
+            onClick={(e) => { e.stopPropagation(); setExtractId(extractId === row.id ? null : row.id); }}
           >
             <Eye size={14} aria-hidden />
           </Button>
-          <Button size="sm" variant="ghost" aria-label={`Delete ${row.name}`} onClick={() => setDeleteId(row.id)}>
+          <Button
+            size="sm"
+            variant="ghost"
+            aria-label={`Delete ${row.name}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              setDeleteId(row.id);
+            }}
+          >
             <Trash2 size={14} aria-hidden />
           </Button>
         </div>
@@ -434,29 +448,6 @@ export default function Sources() {
         </div>
       </Panel>
 
-      {failures.map((source) => (
-        <div key={source.id} className="flex flex-col gap-3 rounded-md border border-line bg-surface p-4">
-          <span className="font-mono text-micro text-danger">could not read {source.name}</span>
-          <p className="max-w-measure text-sm text-dim">{source.problem}</p>
-          <div className="flex items-center gap-3">
-            <Button
-              size="sm"
-              variant="secondary"
-              iconLeft={<UploadCloud size={14} />}
-              onClick={() => {
-                setTab('upload');
-                fileInput.current?.click();
-              }}
-            >
-              Upload the OCR version
-            </Button>
-            <Button size="sm" variant="ghost" onClick={() => setDeleteId(source.id)}>
-              Remove it
-            </Button>
-          </div>
-        </div>
-      ))}
-
       {loading ? (
         <Panel title="Sources">
           <div className="flex flex-col gap-3">
@@ -478,7 +469,34 @@ export default function Sources() {
           </Button>
         </div>
       ) : (
-        <Table columns={columns} rows={sources} rowKey={(row) => row.id} />
+        <Table
+          columns={columns}
+          rows={sources}
+          rowKey={(row) => row.id}
+          detail={(row) =>
+            row.status === 'failed' ? (
+              <div className="flex flex-col gap-3">
+                <p className="max-w-measure text-sm text-dim">{row.problem}</p>
+                <div className="flex items-center gap-3">
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    iconLeft={<UploadCloud size={14} />}
+                    onClick={() => {
+                      setTab('upload');
+                      fileInput.current?.click();
+                    }}
+                  >
+                    Upload the OCR version
+                  </Button>
+                  <Button size="sm" variant="ghost" onClick={() => setDeleteId(row.id)}>
+                    Remove it
+                  </Button>
+                </div>
+              </div>
+            ) : null
+          }
+        />
       )}
 
       {extract && (

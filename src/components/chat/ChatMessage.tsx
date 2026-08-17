@@ -18,7 +18,7 @@ export interface Message {
   citations?: Citation[];
   usedSourceIds?: string[];
   /** Set when nothing matched: the answer offers this document instead. */
-  unanswered?: { closest: Source; closing: string };
+  unanswered?: { closest: Source | null; closing: string };
   rating?: 'up' | 'down';
   corrected?: boolean;
 }
@@ -48,7 +48,8 @@ export function ChatMessage({
   }
 
   const citation = message.citations?.find((c) => c.id === openCitation);
-  const ClosestIcon = message.unanswered ? sourceIcon[message.unanswered.closest.kind] : null;
+  const closest = message.unanswered?.closest ?? null;
+  const ClosestIcon = closest ? sourceIcon[closest.kind] : null;
 
   function saveCorrection() {
     if (!draft.trim()) return;
@@ -66,16 +67,20 @@ export function ChatMessage({
         <p className="whitespace-pre-wrap text-base text-text">{message.text}</p>
       )}
 
-      {message.unanswered && ClosestIcon && (
+      {message.unanswered && (
         <div className="flex flex-col gap-3 rounded-md border border-line bg-surface p-4">
-          <span className="font-mono text-micro text-faint">closest document</span>
-          <div className="flex items-center gap-3">
-            <ClosestIcon size={14} className="shrink-0 text-faint" aria-hidden />
-            <span className="text-sm text-text">{message.unanswered.closest.name}</span>
-            <span className="font-mono text-micro text-faint tnum">
-              {count(message.unanswered.closest.pages)} pages
-            </span>
-          </div>
+          {closest && ClosestIcon && (
+            <>
+              <span className="font-mono text-micro text-faint">closest document</span>
+              <div className="flex items-center gap-3">
+                <ClosestIcon size={14} className="shrink-0 text-faint" aria-hidden />
+                <span className="text-sm text-text">{closest.name}</span>
+                <span className="font-mono text-micro text-faint tnum">
+                  {count(closest.pages)} pages
+                </span>
+              </div>
+            </>
+          )}
           <p className="max-w-measure text-sm text-dim">{message.unanswered.closing}</p>
           <div>
             <Button size="sm" variant="secondary" iconLeft={<Plus size={14} />} onClick={() => setCorrecting(true)}>

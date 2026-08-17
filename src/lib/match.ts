@@ -1,7 +1,7 @@
 import { chatScripts } from '@/mock/chatScripts';
 import type { ChatScript } from '@/mock/chatScripts';
-import { helpCenter, sources } from '@/mock/sources';
 import type { Source } from '@/mock/sources';
+import { useSources } from '@/store/sources';
 
 const normalize = (text: string) => ` ${text.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()} `;
 
@@ -24,16 +24,21 @@ export function matchScript(question: string): ChatScript | null {
   return best?.script ?? null;
 }
 
-/** The document offered when nothing matched. Falls back to the broadest source. */
-export function closestSource(question: string): Source {
+/**
+ * The document offered when nothing matched. Reads the live workspace rather
+ * than the seed, so a source someone deleted is never suggested back to them.
+ */
+export function closestSource(question: string): Source | null {
   const haystack = normalize(question);
-  let best: { source: Source; score: number } | null = null;
+  const available = useSources.getState().sources.filter((s) => s.status !== 'failed');
+  if (available.length === 0) return null;
 
-  for (const source of sources) {
-    if (source.status === 'failed') continue;
+  let best: { source: Source; score: number } | null = null;
+  for (const source of available) {
     const score = source.topics.filter((topic) => hit(haystack, topic)).length;
     if (score > 0 && (!best || score > best.score)) best = { source, score };
   }
 
-  return best?.source ?? helpCenter;
+  // Nothing tagged close: offer the broadest source there is.
+  return best?.source ?? available.reduce((a, b) => (b.pages > a.pages ? b : a));
 }

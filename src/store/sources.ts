@@ -27,7 +27,7 @@ export const useSources = create<SourcesState>()(
         })),
       reset: () => set({ sources: seed }),
     }),
-    { name: 'frontdesk.sources', version: 2 },
+    { name: 'frontdesk.sources', version: 3 },
   ),
 );
 

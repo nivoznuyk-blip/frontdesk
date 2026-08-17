@@ -110,7 +110,7 @@ export default function Playground() {
 
   if (loading) {
     return (
-      <div className="flex h-full gap-6">
+      <div className="flex min-h-0 flex-1 gap-6">
         <section className="flex min-w-0 flex-1 flex-col gap-6 rounded-md border border-line bg-surface p-6">
           <Skeleton className="h-4 w-1/3" />
           <SkeletonRows rows={3} />
@@ -127,7 +127,7 @@ export default function Playground() {
 
   if (sources.length === 0) {
     return (
-      <div className="flex h-full items-center justify-center">
+      <div className="flex min-h-0 flex-1 items-center justify-center">
         <div className="flex max-w-measure flex-col items-start gap-4 rounded-md border border-line bg-surface p-6">
           <span className="font-mono text-micro text-faint">no sources yet</span>
           <h2 className="text-h3 font-medium">Nothing behind the desk yet</h2>
@@ -144,7 +144,7 @@ export default function Playground() {
   }
 
   return (
-    <div className="flex h-full flex-col gap-4">
+    <div className="flex min-h-0 flex-1 flex-col gap-4">
       <div className="flex items-center gap-4">
         <span className="font-mono text-micro text-faint">
           last trained {count(bot.lastTrainedMinutes)} minutes ago
