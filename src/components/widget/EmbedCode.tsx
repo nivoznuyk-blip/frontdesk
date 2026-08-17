@@ -48,7 +48,9 @@ export function EmbedCode({ settings }: { settings: WidgetSettings }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <Tabs items={targets} value={target} onChange={setTarget} />
+      <div className="overflow-x-auto">
+        <Tabs items={targets} value={target} onChange={setTarget} />
+      </div>
       <CodeBlock code={snippet(target, settings)} />
     </div>
   );
