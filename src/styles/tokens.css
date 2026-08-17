@@ -1,0 +1,40 @@
+:root {
+  --bg: #0C0B0A;
+  --surface: #131211;
+  --surface-raised: #1A1918;
+  --surface-sunken: #080807;
+
+  --border: #26241F;
+  --border-strong: #3A3730;
+
+  --text: #F0EDE6;
+  --text-dim: #A09B90;
+  --text-faint: #7D776B;
+
+  --amber: #E5A33C;
+  --amber-hover: #F2B658;
+  --amber-dim: #8A6220;
+  --amber-wash: #201808;
+  --on-amber: #201400;
+
+  --cite: #7FA4C4;
+  --cite-wash: #101820;
+
+  --success: #7FB069;
+  --success-wash: #10180D;
+  --danger: #D9605A;
+  --danger-wash: #241211;
+  --warning: #C9A227;
+  --warning-wash: #1E1808;
+
+  --r-sm: 4px;
+  --r-md: 6px;
+
+  --d-fast: 120ms;
+  --d-base: 180ms;
+  --d-slow: 260ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  --font-sans: 'Satoshi', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
