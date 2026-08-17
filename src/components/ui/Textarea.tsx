@@ -5,10 +5,12 @@ import { cn } from '@/lib/cn';
 export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   hint?: string;
+  /** 'meta' labels a data field, 'prose' labels a field someone writes sentences into. */
+  labelTone?: 'meta' | 'prose';
 }
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
-  { label, hint, className, id, rows = 4, ...rest },
+  { label, hint, labelTone = 'meta', className, id, rows = 4, ...rest },
   ref,
 ) {
   const auto = useId();
@@ -17,7 +19,10 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
   return (
     <div className="flex flex-col gap-2">
       {label && (
-        <label htmlFor={areaId} className="font-mono text-micro text-faint">
+        <label
+          htmlFor={areaId}
+          className={labelTone === 'prose' ? 'text-sm text-dim' : 'font-mono text-micro text-faint'}
+        >
           {label}
         </label>
       )}

@@ -120,9 +120,30 @@ export const chatScripts: ChatScript[] = [
   },
 ];
 
-/** The answer shape for anything the sources do not cover. */
-export const fallback = {
-  answer:
-    'I could not find this in the sources I have been given, so I am not going to guess at it.',
-  closing: 'If this is something the bot should know, add an answer and it will be indexed straight away.',
-};
+/**
+ * The answer shape for anything the sources do not cover. Several phrasings,
+ * because two unanswered questions in a row should not read as one canned string.
+ */
+export const fallbacks = [
+  {
+    answer: 'I could not find this in the sources I have been given, so I am not going to guess at it.',
+    closing: 'If this is something the bot should know, add an answer and it is indexed straight away.',
+  },
+  {
+    answer: 'Nothing in the current sources covers this. I would rather tell you that than improvise.',
+    closing: 'Add an answer here and the next visitor who asks will get it.',
+  },
+  {
+    answer:
+      'That is outside what I have been trained on — there is no passage I can point at for it.',
+    closing: 'If someone on your team knows the answer, add it and it becomes part of the sources.',
+  },
+  {
+    answer:
+      'I have no answer for this in the sources. Guessing would put words in your product’s mouth.',
+    closing: 'Write it once here and every visitor after this one gets it.',
+  },
+];
+
+/** Cycles through the phrasings so consecutive misses never repeat. */
+export const fallbackFor = (turn: number) => fallbacks[turn % fallbacks.length];

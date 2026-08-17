@@ -7,7 +7,7 @@ import type { Stage } from '@/components/chat/ChatThread';
 import { Composer } from '@/components/chat/Composer';
 import type { Message } from '@/components/chat/ChatMessage';
 import { bot } from '@/mock/company';
-import { fallback, suggestedQuestions } from '@/mock/chatScripts';
+import { fallbackFor, suggestedQuestions } from '@/mock/chatScripts';
 import { sources } from '@/mock/sources';
 import type { SourceKind } from '@/mock/sources';
 import { closestSource, matchScript } from '@/lib/match';
@@ -25,6 +25,7 @@ export default function Playground() {
   const navigate = useNavigate();
   const toast = useToast();
   const nextId = useRef(0);
+  const unanswered = useRef(0);
 
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -44,6 +45,8 @@ export default function Playground() {
 
   const lastAnswer = [...messages].reverse().find((m) => m.role === 'bot');
   const usedSourceIds = lastAnswer?.usedSourceIds ?? [];
+  const failed = sources.filter((source) => source.status === 'failed').length;
+  const connected = sources.length - failed;
 
   async function ask(question: string) {
     nextId.current += 1;
@@ -65,26 +68,30 @@ export default function Playground() {
     await delay(350);
     setStage(null);
 
-    setMessages((prev) => [
-      ...prev,
-      script
-        ? {
-            id: `a${turn}`,
-            role: 'bot',
-            text: script.answer,
-            stream: true,
-            citations: script.citations,
-            usedSourceIds: used,
-          }
-        : {
-            id: `a${turn}`,
-            role: 'bot',
-            text: fallback.answer,
-            stream: true,
-            usedSourceIds: [],
-            unanswered: { closest: closestSource(question), closing: fallback.closing },
-          },
-    ]);
+    let answer: Message;
+    if (script) {
+      answer = {
+        id: `a${turn}`,
+        role: 'bot',
+        text: script.answer,
+        stream: true,
+        citations: script.citations,
+        usedSourceIds: used,
+      };
+    } else {
+      const variant = fallbackFor(unanswered.current);
+      unanswered.current += 1;
+      answer = {
+        id: `a${turn}`,
+        role: 'bot',
+        text: variant.answer,
+        stream: true,
+        usedSourceIds: [],
+        unanswered: { closest: closestSource(question), closing: variant.closing },
+      };
+    }
+
+    setMessages((prev) => [...prev, answer]);
     setBusy(false);
   }
 
@@ -187,7 +194,15 @@ export default function Playground() {
         </section>
 
         <aside className="flex w-context shrink-0 flex-col gap-4 overflow-y-auto">
-          <Panel title="Sources" meta={`${count(sources.length)} connected`}>
+          <Panel
+            title="Sources"
+            meta={
+              <>
+                {count(connected)} connected
+                {failed > 0 && <span className="pl-3 text-danger">{count(failed)} failed</span>}
+              </>
+            }
+          >
             <ul className="flex flex-col gap-px">
               {sources.map((source) => {
                 const Icon = kindIcon[source.kind];

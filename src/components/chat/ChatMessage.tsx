@@ -145,11 +145,12 @@ export function ChatMessage({
       {correcting && (
         <div className="flex flex-col gap-3 rounded-md border border-line bg-surface p-4">
           <Textarea
-            label="the answer it should give"
+            label="The answer it should give"
+            labelTone="prose"
             rows={3}
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
-            placeholder="Seats are per plan: Free 1, Starter 3, Growth unlimited."
+            placeholder="Write it in full, the way you would say it to a customer."
           />
           <div className="flex items-center gap-3">
             <Button size="sm" variant="secondary" onClick={saveCorrection} disabled={!draft.trim()}>
