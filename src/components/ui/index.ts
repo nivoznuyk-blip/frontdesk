@@ -3,6 +3,7 @@ export { Input } from './Input';
 export { Textarea } from './Textarea';
 export { Select } from './Select';
 export { Panel } from './Panel';
+export { Modal } from './Modal';
 export { Badge } from './Badge';
 export { Table } from './Table';
 export type { Column } from './Table';

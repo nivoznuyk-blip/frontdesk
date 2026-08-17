@@ -57,6 +57,7 @@ export default {
         measure: '65ch',
         control: '320px',
         bubble: '80%',
+        dialog: '440px',
       },
       width: {
         sidebar: '220px',

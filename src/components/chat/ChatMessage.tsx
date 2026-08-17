@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FileText, Globe, MessageSquareQuote, Plus, ThumbsDown, ThumbsUp } from 'lucide-react';
+import { Plus, ThumbsDown, ThumbsUp } from 'lucide-react';
 import { Button, Textarea, useToast } from '@/components/ui';
 import { CitationChip } from './CitationChip';
 import { StreamingText } from './StreamingText';
 import { count } from '@/lib/format';
+import { sourceIcon } from '@/lib/sourceIcon';
 import type { Citation } from '@/mock/chatScripts';
-import type { Source, SourceKind } from '@/mock/sources';
+import type { Source } from '@/mock/sources';
 
 export interface Message {
   id: string;
@@ -21,12 +22,6 @@ export interface Message {
   rating?: 'up' | 'down';
   corrected?: boolean;
 }
-
-const kindIcon: Record<SourceKind, typeof Globe> = {
-  crawl: Globe,
-  file: FileText,
-  qa: MessageSquareQuote,
-};
 
 export function ChatMessage({
   message,
@@ -53,7 +48,7 @@ export function ChatMessage({
   }
 
   const citation = message.citations?.find((c) => c.id === openCitation);
-  const ClosestIcon = message.unanswered ? kindIcon[message.unanswered.closest.kind] : null;
+  const ClosestIcon = message.unanswered ? sourceIcon[message.unanswered.closest.kind] : null;
 
   function saveCorrection() {
     if (!draft.trim()) return;

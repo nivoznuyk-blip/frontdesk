@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, FileText, Globe, Link2, MessageSquareQuote, Plus } from 'lucide-react';
+import { ArrowRight, Link2, Plus } from 'lucide-react';
 import { Badge, Button, Panel, Select, Skeleton, SkeletonRows, Slider, useToast } from '@/components/ui';
 import { ChatThread } from '@/components/chat/ChatThread';
 import type { Stage } from '@/components/chat/ChatThread';
@@ -8,22 +8,17 @@ import { Composer } from '@/components/chat/Composer';
 import type { Message } from '@/components/chat/ChatMessage';
 import { bot } from '@/mock/company';
 import { fallbackFor, suggestedQuestions } from '@/mock/chatScripts';
-import { sources } from '@/mock/sources';
-import type { SourceKind } from '@/mock/sources';
+import { useSources } from '@/store/sources';
 import { closestSource, matchScript } from '@/lib/match';
 import { count } from '@/lib/format';
 import { delay } from '@/lib/delay';
+import { sourceIcon } from '@/lib/sourceIcon';
 import { cn } from '@/lib/cn';
-
-const kindIcon: Record<SourceKind, typeof Globe> = {
-  crawl: Globe,
-  file: FileText,
-  qa: MessageSquareQuote,
-};
 
 export default function Playground() {
   const navigate = useNavigate();
   const toast = useToast();
+  const sources = useSources((state) => state.sources);
   const nextId = useRef(0);
   const unanswered = useRef(0);
 
@@ -205,7 +200,7 @@ export default function Playground() {
           >
             <ul className="flex flex-col gap-px">
               {sources.map((source) => {
-                const Icon = kindIcon[source.kind];
+                const Icon = sourceIcon[source.kind];
                 const used = usedSourceIds.includes(source.id);
                 return (
                   <li key={source.id} className="flex flex-col gap-1 py-2">
