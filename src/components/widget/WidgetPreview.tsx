@@ -29,6 +29,21 @@ function SiteMock() {
         <div className="h-16 rounded-sm bg-surface" />
         <div className="h-16 rounded-sm bg-surface" />
       </div>
+      <div className="flex flex-col gap-3">
+        <div className="h-3 w-1/3 rounded-sm bg-raised" />
+        <div className="h-2 w-full rounded-sm bg-surface" />
+        <div className="h-2 w-full rounded-sm bg-surface" />
+        <div className="h-2 w-4/5 rounded-sm bg-surface" />
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="h-12 rounded-sm bg-surface" />
+        <div className="h-12 rounded-sm bg-surface" />
+      </div>
+      <div className="flex items-center gap-4 border-t border-line pt-4">
+        <div className="h-2 w-12 rounded-sm bg-surface" />
+        <div className="h-2 w-12 rounded-sm bg-surface" />
+        <div className="ml-auto h-2 w-16 rounded-sm bg-surface" />
+      </div>
     </div>
   );
 }
@@ -86,7 +101,7 @@ export function WidgetPreview({
               </button>
             </header>
 
-            <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-3">
+            <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-3 pb-4">
               <p className="border-l-2 border-line-strong pl-3 text-sm text-text">{settings.greeting}</p>
 
               {settings.emailTiming === 'before' ? (

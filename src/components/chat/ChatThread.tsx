@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { ChatMessage } from './ChatMessage';
 import type { Message } from './ChatMessage';
 import { count } from '@/lib/format';
+import { cn } from '@/lib/cn';
 
 export type Stage = 'searching' | 'reading' | 'writing';
 
@@ -29,13 +30,25 @@ export function ChatThread({
   onCorrect: (id: string) => void;
   header?: ReactNode;
 }) {
-  const endRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
-  const scrollToEnd = () => endRef.current?.scrollIntoView({ block: 'end' });
+  // Scroll this pane only: scrollIntoView would drag every scrollable ancestor with it.
+  const scrollToEnd = () => {
+    const list = listRef.current;
+    if (list) list.scrollTop = list.scrollHeight;
+  };
   useEffect(scrollToEnd, [messages.length, stage]);
 
+  const empty = messages.length === 0 && !stage;
+
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-8 overflow-y-auto p-6">
+    <div
+      ref={listRef}
+      className={cn(
+        'flex min-h-0 flex-1 flex-col gap-8 overflow-y-auto p-6',
+        empty && 'justify-center',
+      )}
+    >
       {header}
 
       {messages.map((message) => (
@@ -66,7 +79,6 @@ export function ChatThread({
         </div>
       )}
 
-      <div ref={endRef} />
     </div>
   );
 }

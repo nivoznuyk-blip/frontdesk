@@ -5,7 +5,7 @@ import type { Column } from '@/components/ui';
 import { indexedPages, useSources } from '@/store/sources';
 import { usePlan } from '@/store/plan';
 import { useWidget } from '@/store/widget';
-import { useLog } from '@/store/log';
+import { useLogger } from '@/store/log';
 import { plans } from '@/mock/plans';
 import type { PlanId } from '@/mock/plans';
 import { apiKey, invoices, team, usage } from '@/mock/company';
@@ -20,7 +20,7 @@ export default function Settings() {
   const sources = useSources((state) => state.sources);
   const resetSources = useSources((state) => state.reset);
   const resetWidget = useWidget((state) => state.reset);
-  const log = useLog((state) => state.push);
+  const log = useLogger();
 
   const [revealed, setRevealed] = useState(false);
   const [copied, setCopied] = useState(false);

@@ -67,13 +67,13 @@ export default {
         caret: '7px',
       },
       minHeight: {
-        preview: '480px',
+        preview: '520px',
       },
       height: {
         switch: '20px',
       },
       maxHeight: {
-        widget: '340px',
+        widget: '420px',
       },
       translate: {
         switch: '14px',

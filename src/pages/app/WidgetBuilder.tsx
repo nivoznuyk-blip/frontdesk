@@ -6,7 +6,7 @@ import { EmbedCode } from '@/components/widget/EmbedCode';
 import { WidgetPreview } from '@/components/widget/WidgetPreview';
 import { useWidget } from '@/store/widget';
 import { usePlan } from '@/store/plan';
-import { useLog } from '@/store/log';
+import { useLogger } from '@/store/log';
 import { plans } from '@/mock/plans';
 import {
   MAX_STARTERS, accentPresets, emailTimings, mobileBehaviours, positions, shapes, tones,
@@ -26,7 +26,7 @@ export default function WidgetBuilder() {
   const navigate = useNavigate();
   const { settings, set } = useWidget();
   const plan = plans[usePlan((state) => state.plan)];
-  const log = useLog((state) => state.push);
+  const log = useLogger();
   const [open, setOpen] = useState(true);
 
   // Text fields update the preview on every keystroke; the log waits for a pause.
@@ -79,7 +79,7 @@ export default function WidgetBuilder() {
       </div>
 
       <div className="flex min-h-0 flex-1 gap-6 max-md:flex-col max-md:overflow-y-auto">
-        <div className="flex w-settings min-w-0 shrink-0 flex-col gap-4 overflow-y-auto pr-2 max-md:w-full max-md:overflow-visible">
+        <div className="flex w-settings min-w-0 shrink-0 flex-col gap-4 overflow-y-auto pb-6 pr-2 max-md:w-full max-md:overflow-visible">
           <Panel title="Appearance">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-2">

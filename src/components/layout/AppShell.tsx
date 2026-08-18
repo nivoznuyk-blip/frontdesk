@@ -11,6 +11,7 @@ export function AppShell() {
   const routeMotion = useRouteMotion();
   const mainRef = useRef<HTMLElement>(null);
   const entries = useLog((state) => state.entries);
+  const onThisScreen = entries.filter((entry) => entry.screen === location.pathname);
 
   // A new screen starts at its own top, never where the last one was scrolled to.
   useEffect(() => {
@@ -41,7 +42,7 @@ export function AppShell() {
         </div>
       </div>
 
-      <LogLine entries={entries} className="shrink-0" />
+      <LogLine entries={onThisScreen} className="shrink-0" />
     </div>
   );
 }

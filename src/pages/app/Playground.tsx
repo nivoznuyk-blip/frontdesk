@@ -154,8 +154,8 @@ export default function Playground() {
         </Button>
       </div>
 
-      <div className="flex min-h-0 flex-1 gap-6">
-        <section className="flex min-w-0 flex-1 flex-col rounded-md border border-line bg-surface">
+      <div className="flex min-h-0 flex-1 gap-6 max-md:flex-col max-md:overflow-y-auto">
+        <section className="flex min-w-0 flex-1 flex-col rounded-md border border-line bg-surface max-md:min-h-preview">
           <ChatThread
             messages={messages}
             stage={stage}
@@ -188,7 +188,7 @@ export default function Playground() {
           <Composer onSend={ask} busy={busy} />
         </section>
 
-        <aside className="flex w-aside shrink-0 flex-col gap-4 overflow-y-auto">
+        <aside className="flex w-aside shrink-0 flex-col gap-4 overflow-y-auto pb-6 max-md:w-full">
           <Panel
             title="Sources"
             meta={
@@ -242,18 +242,19 @@ export default function Playground() {
                 onChange={(e) => setModel(e.target.value)}
                 options={bot.models}
               />
-              <div className="flex flex-col gap-2">
-                <Slider
-                  label="strictness"
-                  value={strictness}
-                  onChange={setStrictness}
-                  readout={strictness <= 33 ? 'sources only' : strictness <= 66 ? 'mostly sources' : 'may infer'}
-                />
-                <div className="flex justify-between font-mono text-micro text-faint">
-                  <span>only answer from sources</span>
-                  <span>allowed to infer</span>
-                </div>
-              </div>
+              <Slider
+                label="strictness"
+                value={strictness}
+                onChange={setStrictness}
+                readout={strictness <= 33 ? 'sources only' : strictness <= 66 ? 'mostly sources' : 'may infer'}
+                hint={
+                  strictness <= 33
+                    ? 'Answers only from the sources, and says so when it finds nothing.'
+                    : strictness <= 66
+                    ? 'Stays with the sources, but rephrases to fit the question.'
+                    : 'May join related passages when nothing matches outright.'
+                }
+              />
             </div>
           </Panel>
 
