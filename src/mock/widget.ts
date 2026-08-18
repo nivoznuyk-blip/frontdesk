@@ -38,8 +38,10 @@ export const defaultWidget: WidgetSettings = {
 };
 
 /**
- * Preset swatches. Every value is one this design system already defines, so the
- * palette gains nothing new — a customer can still type their own brand hex.
+ * Preset swatches. These are customer settings, not design tokens, which is why
+ * they live here and never in tokens.css. Five reuse values the system already
+ * defines; navy is deliberately dark, so the swatch row shows the widget's text
+ * colour switching to light on its own. A customer can still type any brand hex.
  */
 export const accentPresets = [
   { value: '#E5A33C', label: 'amber' },
@@ -47,6 +49,8 @@ export const accentPresets = [
   { value: '#7FB069', label: 'green' },
   { value: '#D9605A', label: 'red' },
   { value: '#C9A227', label: 'gold' },
+  // A deliberately dark option: the widget's text flips to light on this one.
+  { value: '#1B2A4A', label: 'navy' },
 ];
 
 export const positions: Array<{ value: Position; label: string }> = [
