@@ -402,9 +402,10 @@ export default function Landing() {
           <h2 className="text-h2 font-medium">Pricing</h2>
           <Link
             to="/pricing"
-            className="font-mono text-micro text-faint transition-colors duration-fast ease-std hover:text-dim"
+            className="inline-flex h-9 items-center gap-2 rounded-sm px-4 text-sm font-medium text-dim transition-colors duration-fast ease-std hover:bg-raised hover:text-text"
           >
-            all the limits, side by side
+            All the limits, side by side
+            <ArrowRight size={14} aria-hidden />
           </Link>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
@@ -418,7 +419,10 @@ export default function Landing() {
                   id === 'starter' ? 'border-amber-dim' : 'border-line',
                 )}
               >
-                <span className="font-mono text-micro text-faint">{plan.name.toLowerCase()}</span>
+                <span className="font-mono text-micro text-faint">
+                  {plan.name.toLowerCase()}
+                  {id === 'starter' && <span className="pl-3 text-amber-dim">recommended</span>}
+                </span>
                 <div className="flex items-baseline gap-2">
                   <span className="font-mono text-h2 text-text tnum">{money(plan.price)}</span>
                   <span className="font-mono text-micro text-faint">a month</span>

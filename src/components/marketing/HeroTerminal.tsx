@@ -49,7 +49,7 @@ export function HeroTerminal() {
   }, [reduced]);
 
   return (
-    <div className="flex h-32 flex-col gap-1 overflow-hidden rounded-md border border-line bg-sunken p-4 font-mono text-micro">
+    <div className="flex h-terminal flex-col gap-1 overflow-hidden rounded-md border border-line bg-sunken p-4 font-mono text-micro">
       <span className="flex shrink-0 gap-2">
         <span className="text-amber-dim">$</span>
         <span className="min-w-0 truncate text-dim">{command.slice(0, typed)}</span>
