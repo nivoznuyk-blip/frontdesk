@@ -5,6 +5,11 @@ export const percent = (n: number, digits = 0) => `${n.toFixed(digits)}%`;
 export const money = (n: number) =>
   new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
 
+export const day = (iso: string) =>
+  new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).format(
+    new Date(iso),
+  );
+
 export function clock(d: Date = new Date()): string {
   return d.toLocaleTimeString('en-GB', { hour12: false });
 }
