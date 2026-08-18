@@ -229,9 +229,7 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="max-w-flow">
-            <HeroTerminal />
-          </div>
+          <HeroTerminal />
 
           <div className="flex flex-wrap items-center gap-4">
             <Button variant="primary" iconRight={<ArrowRight size={14} />} onClick={() => navigate('/start')}>
@@ -424,10 +422,10 @@ export default function Landing() {
             <div className="border-b border-line p-6 font-mono text-micro text-dim">
               what you need
             </div>
-            <div className="border-b border-l border-line p-6 font-mono text-micro text-faint">
+            <div className="border-b border-l border-line p-6 font-mono text-micro text-dim">
               a general chatbot
             </div>
-            <div className="border-b border-l border-line bg-surface p-6 font-mono text-micro text-amber">
+            <div className="border-b border-l border-line bg-surface p-6 font-mono text-micro text-dim">
               frontdesk
             </div>
 
