@@ -166,7 +166,7 @@ It is the one memorable element. Everything around it stays quiet.
 
 ## 9. Floor
 
-- Visible focus ring on every interactive element: 1px `--amber-dim` outline with 2px offset
+- Visible focus ring on every interactive element: 2px `--amber` outline with 2px offset, raised above its neighbours so the ring is never painted over. `--amber-dim` at 1px was tried first and reads as another hairline against `--bg` — it clears WCAG's 3:1 by a hair and disappears in practice.
 - Contrast: body text against `--bg` clears 4.5:1, `--text-faint` is used only for non-essential metadata
 - Every icon-only button has an `aria-label`
 - Landing works down to 390px

@@ -22,8 +22,16 @@
   ::selection { background: var(--amber-dim); color: var(--text); }
 
   :focus-visible {
-    outline: 1px solid var(--amber-dim);
+    outline: 2px solid var(--amber);
     outline-offset: 2px;
+    /* The ring paints outside the box, so it has to sit above whatever is
+       next to it. Anything already positioned by a utility keeps its own
+       position — setting relative here would drop it out of place. */
+    z-index: 1;
+  }
+
+  :focus-visible:not(.absolute):not(.fixed):not(.sticky) {
+    position: relative;
   }
 
   ::-webkit-scrollbar { width: 10px; height: 10px; }

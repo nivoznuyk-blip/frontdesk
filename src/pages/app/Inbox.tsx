@@ -104,7 +104,7 @@ export default function Inbox() {
       <Tabs items={filters} value={filter} onChange={setFilter} />
 
       <div className="flex min-h-0 flex-1 gap-6 max-md:flex-col max-md:overflow-y-auto">
-        <div className="flex w-context shrink-0 flex-col overflow-y-auto pr-2 max-md:w-full max-md:overflow-visible">
+        <div className="flex w-context shrink-0 flex-col overflow-y-auto px-1 max-md:w-full max-md:overflow-visible">
           {kept.length === 0 ? (
             <div className="flex flex-col items-start gap-3 rounded-md border border-line bg-surface p-4">
               <span className="font-mono text-micro text-faint">nothing here</span>
