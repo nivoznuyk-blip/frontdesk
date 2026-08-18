@@ -47,6 +47,16 @@
   .tnum { font-variant-numeric: tabular-nums; }
 }
 
+/* A short viewport — a zoomed browser, a docked window — gives its padding back
+   so a screen that fills the height still fits. After the utilities layer on
+   purpose: it has to win over the pt-8 / pb-6 it overrides. */
+@media (max-height: 760px) {
+  .fd-canvas {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 

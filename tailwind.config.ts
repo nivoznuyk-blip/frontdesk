@@ -52,9 +52,6 @@ export default {
       14: '56px', 16: '64px', 24: '96px', 32: '128px',
     },
     extend: {
-      // `short` is a viewport with little height: a zoomed browser, a docked
-      // window. Screens that fill the viewport trim their padding there.
-      screens: { short: { raw: '(max-height: 760px)' } },
       maxWidth: {
         container: '1180px',
         measure: '65ch',
