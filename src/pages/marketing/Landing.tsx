@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui';
+import { Button, Table } from '@/components/ui';
 import { Container } from '@/components/layout/Container';
 import { WidgetLauncher } from '@/components/widget/WidgetLauncher';
 import { HeroTerminal } from '@/components/marketing/HeroTerminal';
@@ -99,7 +99,14 @@ const uses = [
   },
 ];
 
-const comparison = [
+interface Comparison {
+  id: string;
+  need: string;
+  chatgpt: string;
+  frontdesk: string;
+}
+
+const comparison: Comparison[] = [
   {
     id: 'knows',
     need: 'Knows your documentation',
@@ -155,7 +162,7 @@ const faq = [
 
 function Section({ id, children }: { id?: string; children: ReactNode }) {
   return (
-    <section id={id} className="border-t border-line">
+    <section id={id} className="scroll-mt-24 border-t border-line">
       <Container className="flex flex-col gap-8 py-24 max-md:py-14">{children}</Container>
     </section>
   );
@@ -232,7 +239,7 @@ export default function Landing() {
             </Button>
             <a
               href="#live-demo"
-              className="inline-flex h-9 items-center rounded-sm px-4 text-sm font-medium text-dim transition-colors duration-fast ease-std hover:text-text"
+              className="inline-flex h-9 items-center rounded-sm border border-line-strong px-4 text-sm font-medium text-text transition hover:bg-raised active:scale-press"
             >
               See a live bot
             </a>
@@ -244,7 +251,12 @@ export default function Landing() {
           {...pulseMotion}
           onAnimationComplete={() => setPulse(false)}
         >
-          <WidgetLauncher accent={defaultWidget.accent} shape={defaultWidget.shape} avatar />
+          <WidgetLauncher
+            accent={defaultWidget.accent}
+            shape={defaultWidget.shape}
+            avatar
+            onClick={() => document.getElementById('live-demo')?.scrollIntoView({ block: 'start' })}
+          />
         </motion.div>
       </section>
 
@@ -298,8 +310,8 @@ export default function Landing() {
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2">
-          <div className="flex flex-col gap-4 rounded-md border border-line bg-surface p-6">
+        <div className="grid overflow-hidden rounded-md border border-line md:grid-cols-2 md:divide-x md:divide-line">
+          <div className="flex flex-col gap-4 bg-surface p-6">
             <span className="font-mono text-micro text-faint">the answer</span>
             <div className="flex flex-col gap-3 border-l-2 border-line-strong pl-4">
               <p className="text-text">
@@ -312,7 +324,7 @@ export default function Landing() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 rounded-md border border-line bg-surface p-6">
+          <div className="flex flex-col gap-4 bg-sunken p-6 max-md:border-t max-md:border-line">
             <span className="font-mono text-micro text-faint">security-overview.pdf · page 11</span>
             <div className="flex flex-col gap-3 text-sm text-faint">
               <p>5. Data retention</p>
@@ -345,9 +357,10 @@ export default function Landing() {
       <Section>
         <h2 className="text-h2 font-medium">What it does</h2>
         <div className="grid gap-px border border-line bg-line md:grid-cols-3">
-          {capabilities.map((item) => (
-            <div key={item.title} className="flex flex-col gap-2 bg-bg p-6">
-              <h3 className="text-sm text-text">{item.title}</h3>
+          {capabilities.map((item, index) => (
+            <div key={item.title} className="flex flex-col gap-3 bg-bg p-6">
+              <span className="font-mono text-micro text-faint tnum">0{index + 1}</span>
+              <h3 className="text-base font-medium text-text">{item.title}</h3>
               <p className="text-sm text-dim">{item.body}</p>
             </div>
           ))}
@@ -401,23 +414,30 @@ export default function Landing() {
           </p>
         </div>
 
-        <div className="flex flex-col">
-          <div className="grid grid-cols-3 gap-6 border-b border-line pb-3 font-mono text-micro text-faint">
-            <span>what you need</span>
-            <span>a general chatbot</span>
-            <span>frontdesk</span>
-          </div>
-          {comparison.map((row) => (
-            <div
-              key={row.id}
-              className="grid grid-cols-3 gap-6 border-b border-line py-4 last:border-b-0"
-            >
-              <span className="text-sm text-text">{row.need}</span>
-              <span className="text-sm text-faint">{row.chatgpt}</span>
-              <span className="text-sm text-dim">{row.frontdesk}</span>
-            </div>
-          ))}
-        </div>
+        <Table
+          columns={[
+            {
+              key: 'need',
+              header: 'what you need',
+              width: '30%',
+              render: (row: Comparison) => <span className="text-sm text-text">{row.need}</span>,
+            },
+            {
+              key: 'chatgpt',
+              header: 'a general chatbot',
+              width: '35%',
+              render: (row: Comparison) => <span className="text-sm text-faint">{row.chatgpt}</span>,
+            },
+            {
+              key: 'frontdesk',
+              header: 'frontdesk',
+              width: '35%',
+              render: (row: Comparison) => <span className="text-sm text-dim">{row.frontdesk}</span>,
+            },
+          ]}
+          rows={comparison}
+          rowKey={(row) => row.id}
+        />
       </Section>
 
       {/* 9 — pricing preview */}
@@ -478,10 +498,10 @@ export default function Landing() {
           {faq.map((item) => (
             <div
               key={item.q}
-              className="flex flex-col gap-2 border-b border-line py-6 first:pt-0 last:border-b-0"
+              className="grid gap-4 border-b border-line py-6 first:pt-0 last:border-b-0 md:grid-cols-3 md:gap-8"
             >
               <dt className="text-lg text-text">{item.q}</dt>
-              <dd className="max-w-measure text-dim">{item.a}</dd>
+              <dd className="max-w-measure text-dim md:col-span-2">{item.a}</dd>
             </div>
           ))}
         </dl>
@@ -489,7 +509,7 @@ export default function Landing() {
 
       {/* 11 — closing */}
       <Section>
-        <div className="flex flex-wrap items-center justify-between gap-6">
+        <div className="flex flex-wrap items-center justify-between gap-6 rounded-md border border-line bg-surface p-8">
           <p className="max-w-measure text-h3 font-medium">
             Point it at your docs and see what it answers.
           </p>

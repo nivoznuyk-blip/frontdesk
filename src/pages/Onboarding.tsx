@@ -311,7 +311,13 @@ export default function Onboarding() {
                       come back. Nothing is sent to your visitors yet.
                     </p>
                   </div>
-                  <div className="flex flex-wrap items-end gap-3">
+                  <form
+                    className="flex flex-wrap items-end gap-3"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      if (email.trim()) navigate('/app');
+                    }}
+                  >
                     <div className="min-w-0 flex-1">
                       <Input
                         label="email"
@@ -324,13 +330,13 @@ export default function Onboarding() {
                     </div>
                     <Button
                       variant="primary"
+                      type="submit"
                       iconRight={<ArrowRight size={14} />}
                       disabled={!email.trim()}
-                      onClick={() => navigate('/app')}
                     >
                       Save this bot
                     </Button>
-                  </div>
+                  </form>
                 </div>
               )}
             </>

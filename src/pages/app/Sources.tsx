@@ -391,7 +391,13 @@ export default function Sources() {
           )}
 
           {tab === 'crawl' && (
-            <div className="flex max-w-control flex-col gap-4">
+            <form
+              className="flex max-w-control flex-col gap-4"
+              onSubmit={(e) => {
+                e.preventDefault();
+                startCrawl();
+              }}
+            >
               <Input
                 label="url"
                 mono
@@ -401,11 +407,11 @@ export default function Sources() {
                 hint="We follow links inside the same domain and skip anything behind a login."
               />
               <div>
-                <Button variant="secondary" onClick={startCrawl} disabled={!crawlUrl.trim()}>
+                <Button variant="secondary" type="submit" disabled={!crawlUrl.trim()}>
                   Start crawl
                 </Button>
               </div>
-            </div>
+            </form>
           )}
 
           {tab === 'qa' && (

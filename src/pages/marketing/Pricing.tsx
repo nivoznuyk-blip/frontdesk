@@ -201,24 +201,30 @@ export default function Pricing() {
         <h2 className="text-h2 font-medium">Billing questions</h2>
         <dl className="flex flex-col">
           {billingFaq.map((item) => (
-            <div key={item.q} className="flex flex-col gap-2 border-b border-line py-6 first:pt-0 last:border-b-0">
+            <div
+              key={item.q}
+              className="grid gap-4 border-b border-line py-6 first:pt-0 last:border-b-0 md:grid-cols-3 md:gap-8"
+            >
               <dt className="text-lg text-text">{item.q}</dt>
-              <dd className="max-w-measure text-dim">{item.a}</dd>
+              <dd className="max-w-measure text-dim md:col-span-2">{item.a}</dd>
             </div>
           ))}
         </dl>
       </section>
 
-      <section className="flex flex-wrap items-baseline gap-4 border-t border-line pt-8">
-        <p className="max-w-measure text-dim">
-          More than 10 bots, a review of our security posture, or an invoice your finance team can
-          process? That is a conversation, not a plan.
-        </p>
+      <section className="flex flex-wrap items-center justify-between gap-6 rounded-md border border-line bg-surface p-8">
+        <div className="flex flex-col gap-2">
+          <span className="font-mono text-micro text-faint">enterprise</span>
+          <p className="max-w-measure text-dim">
+            More than 10 bots, a review of our security posture, or an invoice your finance team can
+            process? That is a conversation, not a plan.
+          </p>
+        </div>
         <a
           href="mailto:hello@frontdesk.io"
-          className="font-mono text-micro text-faint transition-colors duration-fast ease-std hover:text-dim"
+          className="inline-flex h-9 shrink-0 items-center rounded-sm border border-line-strong px-4 text-sm font-medium text-text transition hover:bg-raised active:scale-press"
         >
-          talk to us
+          Talk to us
         </a>
       </section>
     </Container>

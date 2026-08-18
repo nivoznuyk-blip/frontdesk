@@ -13,6 +13,7 @@ export function WidgetLab() {
   const [accent, setAccent] = useState(defaultWidget.accent);
   const [position, setPosition] = useState<Position>(defaultWidget.position);
   const [greeting, setGreeting] = useState('Hi. Ask me anything about Acme Cloud.');
+  const [open, setOpen] = useState(true);
 
   return (
     <div className="flex gap-12 max-md:flex-col">
@@ -72,8 +73,8 @@ export function WidgetLab() {
 
       <WidgetPreview
         settings={{ ...defaultWidget, accent, position, greeting }}
-        open
-        onToggle={() => {}}
+        open={open}
+        onToggle={() => setOpen((v) => !v)}
         className="min-h-preview min-w-0 flex-1"
       />
     </div>

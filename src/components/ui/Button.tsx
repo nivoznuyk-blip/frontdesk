@@ -36,7 +36,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       disabled={disabled || loading}
       className={cn(
         'inline-flex items-center justify-center gap-2 rounded-sm font-medium',
-        'transition-colors duration-fast ease-std',
+        // `transition` covers transform too, so active:scale-press animates.
+        'transition',
         'active:scale-press disabled:opacity-40 disabled:pointer-events-none',
         'whitespace-nowrap',
         variants[variant],

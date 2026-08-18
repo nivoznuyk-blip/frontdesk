@@ -90,7 +90,7 @@ export default function Docs() {
               </div>
 
               {article.sections.map((section) => (
-                <section key={section.id} id={section.id} className="flex flex-col gap-4">
+                <section key={section.id} id={section.id} className="flex scroll-mt-24 flex-col gap-4">
                   <h3 className="text-h3 font-medium">{section.heading}</h3>
                   {section.blocks.map((block, index) => {
                     if (block.type === 'code') return <CodeBlock key={index} code={block.text} />;
