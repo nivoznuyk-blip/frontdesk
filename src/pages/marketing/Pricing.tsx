@@ -127,9 +127,6 @@ export default function Pricing() {
         <div className="grid gap-4 md:grid-cols-3">
           {order.map((id) => {
             const plan = plans[id];
-            const perMonth = annual
-              ? Math.round((plan.price * MONTHS_BILLED_ANNUALLY) / 12)
-              : plan.price;
             const recommended = id === 'starter';
 
             return (
@@ -146,16 +143,24 @@ export default function Pricing() {
                     {recommended && <span className="pl-3 text-amber-dim">recommended</span>}
                   </span>
                   <div className="flex items-baseline gap-2">
-                    <span className="font-mono text-h1 text-text tnum">{money(perMonth)}</span>
+                    <span className="font-mono text-h1 text-text tnum">{money(plan.price)}</span>
                     <span className="font-mono text-micro text-faint">a month</span>
                   </div>
-                  <span className="font-mono text-micro text-faint tnum">
-                    {plan.price === 0
-                      ? 'no card, no time limit'
-                      : annual
-                      ? `${money(plan.price * MONTHS_BILLED_ANNUALLY)} a year, billed once`
-                      : `or ${money(plan.price * MONTHS_BILLED_ANNUALLY)} a year on annual billing`}
-                  </span>
+                  {plan.price === 0 ? (
+                    <span className="font-mono text-micro text-faint">no card, no time limit</span>
+                  ) : annual ? (
+                    <span className="font-mono text-micro text-faint tnum">
+                      <span className="line-through">{money(plan.price * 12)}</span>{' '}
+                      <span className="text-dim">
+                        {money(plan.price * MONTHS_BILLED_ANNUALLY)} billed once
+                      </span>
+                      , two months free
+                    </span>
+                  ) : (
+                    <span className="font-mono text-micro text-faint tnum">
+                      or {money(plan.price * MONTHS_BILLED_ANNUALLY)} a year on annual billing
+                    </span>
+                  )}
                 </div>
 
                 <p className="text-sm text-dim">{summary[id]}</p>
