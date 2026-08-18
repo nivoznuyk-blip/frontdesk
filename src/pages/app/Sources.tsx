@@ -167,7 +167,7 @@ export default function Sources() {
 
     setQuestion('');
     setAnswer('');
-    toast.push('answer added to the sources', 'success');
+    toast.push('added the pair to Manual answers', 'success');
   }
 
   async function connectNotion() {
@@ -186,7 +186,7 @@ export default function Sources() {
       topics: ['handbook', 'process'],
       extract: 'Product handbook\n\nHow we ship: a change lands behind a flag, gets a week of use inside the team, then goes out.',
     });
-    toast.push('Notion workspace connected', 'success');
+    toast.push('connected the Notion workspace', 'success');
   }
 
   async function reindex(source: Source) {
@@ -201,7 +201,7 @@ export default function Sources() {
     remove(doomed.id);
     if (extractId === doomed.id) setExtractId(null);
     setDeleteId(null);
-    toast.push(`removed ${doomed.name}`, 'neutral');
+    toast.push(`deleted ${doomed.name}`, 'neutral');
   }
 
   const columns: Array<Column<Source>> = [
@@ -465,10 +465,9 @@ export default function Sources() {
       ) : sources.length === 0 ? (
         <div className="flex flex-col items-start gap-4 rounded-md border border-line bg-surface p-6">
           <span className="font-mono text-micro text-faint">no sources yet</span>
-          <h2 className="text-h3 font-medium">Nothing behind the desk yet</h2>
+          <h2 className="text-h3 font-medium">The desk has nothing to read</h2>
           <p className="max-w-measure text-dim">
-            The bot answers from what you give it. A help centre URL is the quickest start, and you
-            can add files and written answers on top of it.
+            A help centre address is the quickest way to give the bot something to answer from.
           </p>
           <Button variant="primary" iconLeft={<Plus size={14} />} onClick={() => setTab('crawl')}>
             Add the first source

@@ -147,6 +147,7 @@ export default function WidgetBuilder() {
                 rows={2}
                 value={settings.greeting}
                 onChange={(e) => set('greeting', e.target.value)}
+                placeholder="Say hello, and say what the bot can answer."
               />
 
               <div className="flex flex-col gap-3">

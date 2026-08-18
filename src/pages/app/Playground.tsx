@@ -104,7 +104,7 @@ export default function Playground() {
       await navigator.clipboard.writeText(`https://app.frontdesk.io/t/${bot.id}`);
       toast.push('test link copied', 'success');
     } catch {
-      toast.push('could not reach the clipboard', 'danger');
+      toast.push('the browser blocked the copy — select the link and copy it', 'danger');
     }
   }
 
@@ -132,8 +132,7 @@ export default function Playground() {
           <span className="font-mono text-micro text-faint">no sources yet</span>
           <h2 className="text-h3 font-medium">Nothing behind the desk yet</h2>
           <p className="text-dim">
-            The bot answers from what you give it. Point it at your help centre, or upload a
-            handful of PDFs, and it will have something to work with.
+            Point the bot at your help centre and it will have something to answer from.
           </p>
           <Button variant="primary" iconRight={<ArrowRight size={14} />} onClick={() => navigate('/app/sources')}>
             Add the first source
@@ -150,7 +149,7 @@ export default function Playground() {
           last trained {count(bot.lastTrainedMinutes)} minutes ago
         </span>
         <Button size="sm" variant="ghost" className="ml-auto" iconLeft={<Link2 size={14} />} onClick={shareTestLink}>
-          Share test link
+          Copy test link
         </Button>
       </div>
 

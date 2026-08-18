@@ -43,7 +43,7 @@ export default function Settings() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      toast.push('could not reach the clipboard', 'danger');
+      toast.push('the browser blocked the copy — reveal the key and copy it', 'danger');
     }
   }
 
@@ -227,7 +227,7 @@ export default function Settings() {
               variant="danger"
               onClick={() => {
                 setConfirm(null);
-                toast.push('a real bot would be gone — this one is a demo', 'neutral');
+                toast.push('nothing was deleted — this is the demo bot', 'neutral');
               }}
             >
               Delete

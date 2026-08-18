@@ -125,7 +125,7 @@ export default function Insights() {
         </ul>
       </Panel>
 
-      <Panel title="Most asked, and answered" meta="for contrast">
+      <Panel title="Most asked, and answered" meta="answered from the sources">
         <ul className="flex flex-col">
           {answeredQuestions.map((item) => (
             <li
