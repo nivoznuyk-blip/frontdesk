@@ -214,13 +214,11 @@ export default function Pricing() {
       </section>
 
       <section className="flex flex-wrap items-center justify-between gap-6 border-t border-line pt-12">
-        <div className="flex flex-col gap-2">
-          <span className="font-mono text-micro text-faint">enterprise</span>
-          <p className="max-w-measure text-dim">
-            More than 10 bots, a review of our security posture, or an invoice your finance team can
-            process? That is a conversation, not a plan.
-          </p>
-        </div>
+        <p className="max-w-measure text-dim">
+          <span className="pr-3 font-mono text-micro text-faint">enterprise</span>
+          More than 10 bots, a review of our security posture, or an invoice your finance team can
+          process? That is a conversation, not a plan.
+        </p>
         <a
           href="mailto:hello@frontdesk.io"
           className="shrink-0 text-lg text-text underline decoration-line-strong underline-offset-4 transition hover:decoration-amber"
