@@ -19,7 +19,10 @@
       property="og:description"
       content="A support bot that answers from your own docs, and shows where every answer came from."
     />
-    <meta property="og:image" content="/og.png" />
+    <meta property="og:url" content="https://nivoznuyk-blip.github.io/frontdesk/" />
+    <!-- Absolute: crawlers do not resolve relative URLs, and Vite does not
+         rewrite meta content for the base path the way it does href and src. -->
+    <meta property="og:image" content="https://nivoznuyk-blip.github.io/frontdesk/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Frontdesk — stop answering the same twelve questions" />
@@ -30,7 +33,7 @@
       name="twitter:description"
       content="A support bot that answers from your own docs, and shows where every answer came from."
     />
-    <meta name="twitter:image" content="/og.png" />
+    <meta name="twitter:image" content="https://nivoznuyk-blip.github.io/frontdesk/og.png" />
   </head>
   <body>
     <div id="root"></div>
