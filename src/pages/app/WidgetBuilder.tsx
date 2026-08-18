@@ -66,7 +66,7 @@ export default function WidgetBuilder() {
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-4">
-      <div className="flex flex-wrap items-baseline justify-between gap-4">
+      <div className="flex shrink-0 flex-wrap items-baseline justify-between gap-4">
         <h1 className="text-h2 font-medium">Widget</h1>
         <Button
           size="sm"

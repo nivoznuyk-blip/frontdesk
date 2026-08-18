@@ -21,7 +21,7 @@ export function WidgetLauncher({
       aria-label="Open the chat"
       style={{ background: accent, color: onAccent(accent) }}
       className={cn(
-        'flex h-12 w-12 items-center justify-center',
+        'flex h-12 w-12 shrink-0 items-center justify-center',
         'transition-transform duration-fast ease-std active:scale-press',
         shape === 'round' ? 'rounded-full' : 'rounded-md',
       )}

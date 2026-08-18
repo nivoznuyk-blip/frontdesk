@@ -56,12 +56,13 @@ export function WidgetPreview({
 
       <div
         className={cn(
-          'absolute bottom-4 flex flex-col items-end gap-3',
-          settings.position === 'bottom-right' ? 'right-4' : 'left-4 items-start',
+          // Bounded top and bottom by the frame, so the widget can never leave it.
+          'absolute bottom-4 top-12 flex flex-col justify-end gap-3',
+          settings.position === 'bottom-right' ? 'right-4 items-end' : 'left-4 items-start',
         )}
       >
         {open && (
-          <div className="flex h-widget w-context flex-col overflow-hidden rounded-md border border-line bg-bg">
+          <div className="flex min-h-0 w-context max-h-widget flex-1 flex-col overflow-hidden rounded-md border border-line bg-bg">
             <header
               className="flex h-11 shrink-0 items-center gap-3 px-3"
               style={{ background: settings.accent, color: accentText }}

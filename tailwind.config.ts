@@ -70,6 +70,8 @@ export default {
       },
       height: {
         switch: '20px',
+      },
+      maxHeight: {
         widget: '340px',
       },
       translate: {

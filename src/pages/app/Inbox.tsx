@@ -90,7 +90,7 @@ export default function Inbox() {
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-4">
-      <div className="flex flex-wrap items-baseline justify-between gap-4">
+      <div className="flex shrink-0 flex-wrap items-baseline justify-between gap-4">
         <h1 className="text-h2 font-medium">Inbox</h1>
         <span className="font-mono text-micro text-faint tnum">
           {kept.length} of {conversations.length} conversations
@@ -121,19 +121,19 @@ export default function Inbox() {
                     setCorrecting(false);
                   }}
                   className={cn(
-                    'flex flex-col gap-2 border-b border-line px-3 py-3 text-left',
+                    'flex w-full min-w-0 flex-col gap-2 border-b border-line px-3 py-3 text-left',
                     'transition-colors duration-fast ease-std hover:bg-surface',
                     c.id === open?.id && 'bg-surface',
                   )}
                 >
-                  <span className="flex items-center gap-2">
+                  <span className="flex min-w-0 items-center gap-2">
                     <Icon size={12} className="shrink-0 text-faint" aria-label={c.device} />
-                    <span className="truncate font-mono text-micro text-faint">{c.page}</span>
+                    <span className="min-w-0 truncate font-mono text-micro text-faint">{c.page}</span>
                     <span className="ml-auto shrink-0 font-mono text-micro text-faint tnum">
                       {relative(c.startedAt)}
                     </span>
                   </span>
-                  <span className="truncate text-sm text-text">{c.turns[0].text}</span>
+                  <span className="w-full truncate text-sm text-text">{c.turns[0].text}</span>
                   <span className="flex flex-wrap items-center gap-2">
                     {c.rating === 'down' && <Badge tone="danger">thumbs down</Badge>}
                     {c.rating === 'up' && <Badge tone="success">thumbs up</Badge>}
