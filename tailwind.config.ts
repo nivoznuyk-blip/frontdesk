@@ -49,7 +49,7 @@ export default {
     spacing: {
       0: '0', px: '1px', 1: '4px', 2: '8px', 3: '12px', 4: '16px',
       6: '24px', 8: '32px', 9: '36px', 11: '44px', 12: '48px',
-      16: '64px', 24: '96px', 32: '128px',
+      14: '56px', 16: '64px', 24: '96px', 32: '128px',
     },
     extend: {
       maxWidth: {

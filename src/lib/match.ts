@@ -12,11 +12,11 @@ const normalize = (text: string) => ` ${text.toLowerCase().replace(/[^a-z0-9]+/g
 const hit = (haystack: string, keyword: string) => haystack.includes(normalize(keyword).trimEnd());
 
 /** Loose keyword match. Keywords are distinctive, so one hit is enough. */
-export function matchScript(question: string): ChatScript | null {
+export function matchScript(question: string, scripts: ChatScript[] = chatScripts): ChatScript | null {
   const haystack = normalize(question);
   let best: { script: ChatScript; score: number } | null = null;
 
-  for (const script of chatScripts) {
+  for (const script of scripts) {
     const score = script.keywords.filter((keyword) => hit(haystack, keyword)).length;
     if (score > 0 && (!best || score > best.score)) best = { script, score };
   }
