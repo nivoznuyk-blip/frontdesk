@@ -31,25 +31,31 @@ for (const raw of readFileSync(cssPath, 'utf8').split('\n')) {
   if (!line.endsWith('{')) continue;
   for (const selector of line.slice(0, -1).split(/,(?![^[]*])/)) {
     const s = selector.trim();
-    if (!s.startsWith('.')) continue;
-    let name = '';
-    for (let i = 1; i < s.length; i++) {
-      const c = s[i];
-      // Tailwind escapes specials as \x and non-ASCII as a \<hex> code point.
-      if (c === '\\') {
-        const hex = /^\\([0-9a-f]{1,6}) ?/i.exec(s.slice(i));
-        if (hex) {
-          name += String.fromCodePoint(parseInt(hex[1], 16));
-          i += hex[0].length - 1;
-        } else {
-          name += s[++i];
+    // Every class in the selector, not just the leading one: a descendant
+    // selector like `.group:hover .group-hover\:text-text` names two.
+    for (let start = s.indexOf('.'); start !== -1; start = s.indexOf('.', start + 1)) {
+      if (start > 0 && s[start - 1] === '\\') continue; // an escaped dot inside a name
+      let name = '';
+      let i = start + 1;
+      for (; i < s.length; i++) {
+        const c = s[i];
+        // Tailwind escapes specials as \x and non-ASCII as a \<hex> code point.
+        if (c === '\\') {
+          const hex = /^\\([0-9a-f]{1,6}) ?/i.exec(s.slice(i));
+          if (hex) {
+            name += String.fromCodePoint(parseInt(hex[1], 16));
+            i += hex[0].length - 1;
+          } else {
+            name += s[++i];
+          }
+          continue;
         }
-        continue;
+        if (':.,{ >[+~)'.includes(c)) break;
+        name += c;
       }
-      if (':.,{ >[+~'.includes(c)) break;
-      name += c;
+      if (name) emitted.add(name);
+      start = i - 1;
     }
-    if (name) emitted.add(name);
   }
 }
 
