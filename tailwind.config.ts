@@ -84,16 +84,19 @@ export default {
       scale: {
         press: '0.985',
       },
-      transitionTimingFunction: { std: 'var(--ease)' },
-      transitionDuration: { fast: '120ms', base: '180ms', slow: '260ms' },
+      // Defaults, so a bare `transition-colors` is already on the system curve
+      // rather than Tailwind's 150ms / cubic-bezier(.4, 0, .2, 1).
+      transitionTimingFunction: { DEFAULT: 'var(--ease)', std: 'var(--ease)' },
+      transitionDuration: { DEFAULT: '120ms', fast: '120ms', base: '180ms', slow: '260ms' },
       transitionProperty: { 'transform-color': 'transform, background-color' },
       keyframes: {
         blink: { '0%,49%': { opacity: '1' }, '50%,100%': { opacity: '0' } },
-        shimmer: { '100%': { transform: 'translateX(100%)' } },
+        breathe: { '0%,100%': { opacity: '1' }, '50%': { opacity: '0.45' } },
       },
       animation: {
+        // The cursor and the skeleton are the only loops in the product.
         blink: 'blink 1s steps(1) infinite',
-        shimmer: 'shimmer 1.4s infinite',
+        pulse: 'breathe 1.6s var(--ease) infinite',
       },
     },
   },

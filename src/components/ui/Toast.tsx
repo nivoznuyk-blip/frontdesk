@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useToastMotion } from '@/lib/motion';
 import { cn } from '@/lib/cn';
 
 type Tone = 'neutral' | 'success' | 'danger';
@@ -31,6 +32,7 @@ const tones: Record<Tone, string> = {
 
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<ToastItem[]>([]);
+  const toastMotion = useToastMotion();
 
   const push = useCallback((message: string, tone: Tone = 'neutral') => {
     const id = Date.now() + Math.random();
@@ -48,10 +50,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           {items.map((t) => (
             <motion.div
               key={t.id}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 8 }}
-              transition={{ duration: 0.18, ease: [0.2, 0.8, 0.2, 1] }}
+              {...toastMotion}
               className={cn(
                 'rounded-sm border border-line-strong bg-raised px-3 py-2',
                 'font-mono text-label',

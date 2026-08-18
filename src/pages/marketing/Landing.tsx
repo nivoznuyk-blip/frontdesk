@@ -13,7 +13,7 @@ import { plans } from '@/mock/plans';
 import type { PlanId } from '@/mock/plans';
 import { count, money } from '@/lib/format';
 import { cn } from '@/lib/cn';
-import { EASE } from '@/lib/motion';
+import { useAttentionPulse } from '@/lib/motion';
 import type { ReactNode } from 'react';
 
 const planOrder: PlanId[] = ['free', 'starter', 'growth'];
@@ -199,6 +199,7 @@ export default function Landing() {
   const navigate = useNavigate();
   const reduced = useReducedMotion();
   const [pulse, setPulse] = useState(false);
+  const pulseMotion = useAttentionPulse(pulse);
 
   useEffect(() => {
     if (reduced) return;
@@ -240,8 +241,7 @@ export default function Landing() {
 
         <motion.div
           className="absolute bottom-12 right-12 max-md:hidden"
-          animate={pulse ? { scale: [1, 1.08, 1] } : { scale: 1 }}
-          transition={{ duration: 0.52, ease: EASE }}
+          {...pulseMotion}
           onAnimationComplete={() => setPulse(false)}
         >
           <WidgetLauncher accent={defaultWidget.accent} shape={defaultWidget.shape} avatar />

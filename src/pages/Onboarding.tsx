@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useReducedMotion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button, Input } from '@/components/ui';
 import { ChatThread } from '@/components/chat/ChatThread';
@@ -23,6 +24,7 @@ export default function Onboarding() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const log = useLogger();
+  const reduced = useReducedMotion();
   const entries = useLog((state) => state.entries).filter((entry) => entry.screen === pathname);
 
   const [step, setStep] = useState(1);
@@ -59,6 +61,15 @@ export default function Onboarding() {
     if (step !== 2 || crawled) return;
     let live = true;
 
+    // Reduced motion gets the result, not the six second sequence.
+    if (reduced) {
+      setLines(crawlPaths.slice(-5).map((path) => `${domain}${path}`));
+      setFound(crawlSummary.found);
+      setCrawled(true);
+      log(`crawled ${count(crawlSummary.found)} pages, ${count(crawlSummary.indexed)} indexed`);
+      return;
+    }
+
     (async () => {
       for (let i = 0; i < crawlPaths.length; i += 1) {
         await delay(CRAWL_TICK);
@@ -76,7 +87,7 @@ export default function Onboarding() {
     return () => {
       live = false;
     };
-  }, [step, crawled, domain, log]);
+  }, [step, crawled, domain, log, reduced]);
 
   async function ask(question: string) {
     turn.current += 1;
