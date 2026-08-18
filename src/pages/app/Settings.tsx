@@ -8,6 +8,8 @@ import { useWidget } from '@/store/widget';
 import { useLogger } from '@/store/log';
 import { plans } from '@/mock/plans';
 import type { PlanId } from '@/mock/plans';
+
+const planOrder: PlanId[] = ['free', 'starter', 'growth'];
 import { apiKey, invoices, team, usage } from '@/mock/company';
 import type { Invoice, TeamMember } from '@/mock/company';
 import { count, money, percent, relative } from '@/lib/format';
@@ -104,18 +106,23 @@ export default function Settings() {
 
           <div className="flex flex-col gap-3 border-t border-line pt-4">
             <span className="font-mono text-micro text-faint">change plan</span>
-            <div className="flex flex-wrap gap-3">
-              {(Object.keys(plans) as PlanId[]).map((id) => (
-                <Button
-                  key={id}
-                  size="sm"
-                  variant={id === planId ? 'primary' : 'secondary'}
-                  disabled={id === planId}
-                  onClick={() => changePlan(id)}
-                >
-                  {plans[id].name} · {money(plans[id].price)}
-                </Button>
-              ))}
+            <div className="flex flex-wrap items-center gap-3">
+              {planOrder.map((id) => {
+                const current = id === planId;
+                return (
+                  <span key={id} className="flex items-center gap-2">
+                    <Button
+                      size="sm"
+                      variant={current ? 'primary' : 'secondary'}
+                      disabled={current}
+                      onClick={() => changePlan(id)}
+                    >
+                      {plans[id].name} · {money(plans[id].price)}
+                    </Button>
+                    {current && <span className="font-mono text-micro text-amber-dim">current</span>}
+                  </span>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -241,9 +248,13 @@ export default function Settings() {
 function Meter({ label, used, limit }: { label: string; used: number; limit: number | null }) {
   if (limit === null) {
     return (
-      <div className="flex items-baseline justify-between gap-4 font-mono text-micro">
-        <span className="text-faint">{label}</span>
-        <span className="text-dim tnum">{count(used)} · no limit</span>
+      <div className="flex flex-col gap-2">
+        <div className="flex items-baseline justify-between gap-4 font-mono text-micro">
+          <span className="text-faint">{label}</span>
+          <span className="text-dim tnum">{count(used)} · no limit</span>
+        </div>
+        {/* An empty track: there is no cap to fill, but the row keeps the rhythm. */}
+        <div className="h-1 w-full rounded-sm bg-raised" />
       </div>
     );
   }

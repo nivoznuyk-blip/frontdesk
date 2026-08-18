@@ -83,7 +83,7 @@ export function WidgetPreview({
         )}
       >
         {open && (
-          <div className="flex min-h-0 w-context max-h-widget max-w-full flex-1 flex-col overflow-hidden rounded-md border border-line bg-bg">
+          <div className="flex min-h-0 w-context max-h-widget max-w-full flex-col overflow-hidden rounded-md border border-line bg-bg">
             <header
               className="flex h-11 shrink-0 items-center gap-3 px-3"
               style={{ background: settings.accent, color: accentText }}

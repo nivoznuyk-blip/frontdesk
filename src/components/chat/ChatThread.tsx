@@ -48,7 +48,7 @@ export function ChatThread({
       ref={listRef}
       className={cn(
         'flex min-h-0 flex-1 flex-col gap-8 overflow-y-auto p-6',
-        empty && 'justify-center',
+        empty && 'justify-start pt-16',
       )}
     >
       {header}
