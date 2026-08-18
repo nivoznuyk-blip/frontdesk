@@ -212,7 +212,7 @@ export default function Pricing() {
         </dl>
       </section>
 
-      <section className="flex flex-wrap items-center justify-between gap-6 border-t border-line pt-12">
+      <section className="flex flex-wrap items-center justify-between gap-6 pt-12">
         <div className="flex flex-col gap-2">
           <span className="font-mono text-micro text-faint">enterprise</span>
           <p className="max-w-measure text-dim">

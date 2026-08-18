@@ -384,19 +384,21 @@ export default function Landing() {
                 <h3 className="text-h3 font-medium">{use.title}</h3>
                 <p className="text-dim">{use.body}</p>
               </div>
-              <div className="flex flex-1 flex-col gap-4 border-t border-line pt-4">
-                {use.turns.map((turn) => (
-                  <div key={turn.text} className="flex flex-col gap-2">
-                    <span className="font-mono text-micro text-faint">
-                      {turn.role === 'visitor' ? 'a visitor asks' : 'the bot answers'}
-                    </span>
-                    {turn.role === 'visitor' ? (
-                      <p className="rounded-md bg-raised px-3 py-2 text-sm text-text">{turn.text}</p>
-                    ) : (
-                      <p className="border-l-2 border-line-strong pl-3 text-sm text-text">{turn.text}</p>
-                    )}
-                  </div>
-                ))}
+              <div className="mt-auto flex flex-col gap-3">
+                {use.turns.map((turn) =>
+                  turn.role === 'visitor' ? (
+                    <p
+                      key={turn.text}
+                      className="ml-auto max-w-bubble rounded-md bg-raised px-3 py-2 text-sm text-text"
+                    >
+                      {turn.text}
+                    </p>
+                  ) : (
+                    <p key={turn.text} className="border-l-2 border-line-strong pl-3 text-sm text-text">
+                      {turn.text}
+                    </p>
+                  ),
+                )}
               </div>
             </div>
           ))}
@@ -433,11 +435,11 @@ export default function Landing() {
               const line = index < comparison.length - 1 ? 'border-b border-line' : '';
               return (
                 <Fragment key={row.id}>
-                  <div className={cn('p-6 text-sm text-text', line)}>{row.need}</div>
+                  <div className={cn('p-6 text-sm text-dim', line)}>{row.need}</div>
                   <div className={cn('border-l border-line p-6 text-sm text-faint', line)}>
                     {row.chatgpt}
                   </div>
-                  <div className={cn('border-l border-line bg-surface p-6 text-sm text-dim', line)}>
+                  <div className={cn('border-l border-line bg-surface p-6 text-sm text-text', line)}>
                     {row.frontdesk}
                   </div>
                 </Fragment>
@@ -463,11 +465,12 @@ export default function Landing() {
           {planOrder.map((id) => {
             const plan = plans[id];
             return (
-              <div
+              <Link
                 key={id}
+                to="/pricing"
                 className={cn(
-                  'flex flex-col gap-4 rounded-md border bg-surface p-6',
-                  id === 'starter' ? 'border-amber-dim' : 'border-line',
+                  'flex flex-col gap-4 rounded-md border bg-surface p-6 transition hover:bg-raised',
+                  id === 'starter' ? 'border-amber-dim' : 'border-line hover:border-line-strong',
                 )}
               >
                 <span className="font-mono text-micro text-faint">
@@ -492,7 +495,7 @@ export default function Landing() {
                     <dd className="text-dim">{plan.removesBadge ? 'comes off' : 'stays on'}</dd>
                   </div>
                 </dl>
-              </div>
+              </Link>
             );
           })}
         </div>
