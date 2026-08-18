@@ -62,6 +62,7 @@ export default {
       width: {
         sidebar: '220px',
         context: '320px',
+        aside: '360px',
         settings: '480px',
         caret: '7px',
       },

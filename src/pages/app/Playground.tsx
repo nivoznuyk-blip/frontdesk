@@ -116,7 +116,7 @@ export default function Playground() {
           <SkeletonRows rows={3} />
           <Skeleton className="h-4 w-2/3" />
         </section>
-        <aside className="flex w-context shrink-0 flex-col gap-4">
+        <aside className="flex w-aside shrink-0 flex-col gap-4">
           <Panel title="Sources">
             <SkeletonRows rows={4} />
           </Panel>
@@ -188,14 +188,14 @@ export default function Playground() {
           <Composer onSend={ask} busy={busy} />
         </section>
 
-        <aside className="flex w-context shrink-0 flex-col gap-4 overflow-y-auto">
+        <aside className="flex w-aside shrink-0 flex-col gap-4 overflow-y-auto">
           <Panel
             title="Sources"
             meta={
-              <>
+              <span className="whitespace-nowrap">
                 {count(connected)} connected
                 {failed > 0 && <span className="pl-3 text-danger">{count(failed)} failed</span>}
-              </>
+              </span>
             }
           >
             <ul className="flex flex-col gap-px">
