@@ -75,12 +75,12 @@ export function LiveWidget() {
   return (
     <div
       className={cn(
-        'fixed bottom-6 z-50 flex flex-col items-end gap-3',
+        'fixed bottom-6 z-50 flex w-context max-w-full flex-col items-end gap-3',
         settings.position === 'bottom-right' ? 'right-6' : 'left-6 items-start',
       )}
     >
       {open && (
-        <div className="flex h-widget-demo w-context max-w-full flex-col overflow-hidden rounded-md border border-line bg-bg">
+        <div className="flex max-h-widget min-h-0 w-full flex-col overflow-hidden rounded-md border border-line bg-bg">
           <header
             className="flex h-11 shrink-0 items-center gap-3 px-3"
             style={{ background: settings.accent, color: accentText }}
@@ -99,7 +99,7 @@ export function LiveWidget() {
           </header>
 
           <div ref={listRef} className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-3 pb-4">
-            <p className="border-l-2 border-line-strong pl-3 text-sm text-text">{settings.greeting}</p>
+            <p className="break-words border-l-2 border-line-strong pl-3 text-sm text-text">{settings.greeting}</p>
 
             {turns.length === 0 && settings.starters.length > 0 && (
               <div className="flex flex-col items-start gap-2">
@@ -120,7 +120,7 @@ export function LiveWidget() {
               turn.role === 'visitor' ? (
                 <p
                   key={turn.id}
-                  className="ml-auto max-w-bubble rounded-md bg-raised px-3 py-2 text-sm text-text"
+                  className="ml-auto max-w-bubble break-words rounded-md bg-raised px-3 py-2 text-sm text-text"
                 >
                   {turn.text}
                 </p>
@@ -129,7 +129,7 @@ export function LiveWidget() {
                   {turn.stream ? (
                     <StreamingText text={turn.text} onDone={scrollDown} />
                   ) : (
-                    <p className="whitespace-pre-wrap text-sm text-text">{turn.text}</p>
+                    <p className="whitespace-pre-wrap break-words text-sm text-text">{turn.text}</p>
                   )}
 
                   {settings.showCitations && turn.citations && (
@@ -157,7 +157,7 @@ export function LiveWidget() {
                   {turn.handoff && (
                     <a
                       href={`mailto:${settings.handoffEmail}`}
-                      className="font-mono text-micro text-faint transition-colors duration-fast ease-std hover:text-dim"
+                      className="break-all font-mono text-micro text-faint transition-colors duration-fast ease-std hover:text-dim"
                     >
                       write to {settings.handoffEmail}
                     </a>

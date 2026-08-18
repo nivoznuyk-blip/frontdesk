@@ -73,7 +73,6 @@ export default {
       height: {
         switch: '20px',
         terminal: '152px',
-        'widget-demo': '480px',
       },
       maxHeight: {
         widget: '420px',

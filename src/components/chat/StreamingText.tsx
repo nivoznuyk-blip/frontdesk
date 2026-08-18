@@ -5,7 +5,7 @@ export function StreamingText({ text, onDone }: { text: string; onDone?: () => v
   const { shown, done } = useStreamedText(text, onDone);
 
   return (
-    <p className="whitespace-pre-wrap text-base text-text">
+    <p className="whitespace-pre-wrap break-words text-base text-text">
       {shown}
       {!done && (
         <span className="ml-px inline-block h-3 w-caret translate-y-px animate-blink bg-amber" aria-hidden />
