@@ -65,7 +65,7 @@ export default function WidgetBuilder() {
   const badgeLocked = !plan.removesBadge;
 
   return (
-    <div className="flex flex-col gap-4 lg:min-h-0 lg:flex-1">
+    <div className="flex min-h-0 flex-1 flex-col gap-4">
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <h1 className="text-h2 font-medium">Widget</h1>
         <Button
@@ -78,8 +78,8 @@ export default function WidgetBuilder() {
         </Button>
       </div>
 
-      <div className="flex flex-col gap-6 lg:min-h-0 lg:flex-1 lg:flex-row">
-        <div className="flex w-full min-w-0 flex-col gap-4 lg:w-settings lg:min-h-0 lg:shrink-0 lg:overflow-y-auto lg:pr-2">
+      <div className="flex min-h-0 flex-1 gap-6 max-md:flex-col max-md:overflow-y-auto">
+        <div className="flex w-settings min-w-0 shrink-0 flex-col gap-4 overflow-y-auto pr-2 max-md:w-full max-md:overflow-visible">
           <Panel title="Appearance">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-2">
@@ -249,12 +249,15 @@ export default function WidgetBuilder() {
           </Panel>
         </div>
 
-        <div className="flex min-w-0 flex-col lg:min-h-0 lg:flex-1 lg:overflow-y-auto">
-          <div className="bg-bg pb-6 lg:sticky lg:top-0 lg:z-10">
-            <WidgetPreview settings={settings} open={open} onToggle={() => setOpen((v) => !v)} />
-          </div>
+        <div className="flex min-w-0 flex-1 flex-col gap-6 overflow-y-auto max-md:overflow-visible">
+          <WidgetPreview
+            settings={settings}
+            open={open}
+            onToggle={() => setOpen((v) => !v)}
+            className="min-h-preview flex-1"
+          />
 
-          <Panel title="Embed code">
+          <Panel title="Embed code" className="shrink-0">
             <EmbedCode settings={settings} />
           </Panel>
         </div>

@@ -37,15 +37,17 @@ export function WidgetPreview({
   settings,
   open,
   onToggle,
+  className,
 }: {
   settings: WidgetSettings;
   open: boolean;
   onToggle: () => void;
+  className?: string;
 }) {
   const accentText = onAccent(settings.accent);
 
   return (
-    <div className="relative h-preview overflow-hidden rounded-md border border-line bg-sunken">
+    <div className={cn('relative overflow-hidden rounded-md border border-line bg-sunken', className)}>
       <div className="flex h-8 items-center border-b border-line px-3">
         <span className="font-mono text-micro text-faint">{company.domain}</span>
       </div>

@@ -62,13 +62,15 @@ export default {
       width: {
         sidebar: '220px',
         context: '320px',
-        settings: '360px',
+        settings: '480px',
         caret: '7px',
+      },
+      minHeight: {
+        preview: '480px',
       },
       height: {
         switch: '20px',
-        preview: '420px',
-        widget: '360px',
+        widget: '340px',
       },
       translate: {
         switch: '14px',
