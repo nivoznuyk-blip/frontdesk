@@ -107,22 +107,23 @@ export default function Settings() {
           <div className="flex flex-col gap-3 border-t border-line pt-4">
             <span className="font-mono text-micro text-faint">change plan</span>
             <div className="flex flex-wrap items-center gap-3">
-              {planOrder.map((id) => {
-                const current = id === planId;
-                return (
-                  <span key={id} className="flex items-center gap-2">
-                    <Button
-                      size="sm"
-                      variant={current ? 'primary' : 'secondary'}
-                      disabled={current}
-                      onClick={() => changePlan(id)}
-                    >
-                      {plans[id].name} · {money(plans[id].price)}
-                    </Button>
-                    {current && <span className="font-mono text-micro text-amber-dim">current</span>}
+              {planOrder.map((id) =>
+                id === planId ? (
+                  // The plan you are on is a state, not a control: same metrics as the
+                  // buttons beside it, but nothing to press and nothing dimmed.
+                  <span
+                    key={id}
+                    aria-current="true"
+                    className="inline-flex h-8 items-center rounded-sm border border-amber-dim bg-amber-wash px-3 text-label font-medium text-text"
+                  >
+                    {plans[id].name} · {money(plans[id].price)}
                   </span>
-                );
-              })}
+                ) : (
+                  <Button key={id} size="sm" variant="secondary" onClick={() => changePlan(id)}>
+                    {plans[id].name} · {money(plans[id].price)}
+                  </Button>
+                ),
+              )}
             </div>
           </div>
         </div>
