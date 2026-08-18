@@ -25,6 +25,8 @@ const steps = [
     title: 'Point it at what you already wrote',
     body: 'A help centre URL, a handful of PDFs, or a Notion workspace. The crawl reports what it skipped and why.',
     shot: 'app/sources',
+    file: 'sources.png',
+    alt: 'The sources table, with a crawled help centre, three PDFs and one that failed to parse.',
   },
   {
     id: 'playground',
@@ -32,6 +34,8 @@ const steps = [
     title: 'Ask it the questions you actually get',
     body: 'Every answer shows the passages behind it. Wrong ones get corrected in place and become a written answer.',
     shot: 'app · playground',
+    file: 'playground.png',
+    alt: 'The playground, with an answer streaming and its citation chips underneath.',
   },
   {
     id: 'embed',
@@ -39,6 +43,8 @@ const steps = [
     title: 'One script tag, then it is live',
     body: 'Colour, position and greeting stay editable afterwards, so tuning the widget never needs a deploy.',
     shot: 'app/widget',
+    file: 'widget.png',
+    alt: 'The widget builder, with settings on the left and a live preview on the right.',
   },
 ];
 
@@ -155,19 +161,37 @@ function Section({ id, children }: { id?: string; children: ReactNode }) {
   );
 }
 
-function ScreenshotSlot({ label }: { label: string }) {
+/**
+ * A real capture of the screen, with the sketch as a fallback until the file is
+ * in public/screens. The base path matters here the way it does for the router.
+ */
+function Screenshot({ file, alt, label }: { file: string; alt: string; label: string }) {
+  const [missing, setMissing] = useState(false);
+
+  if (missing) {
+    return (
+      <div className="flex aspect-video flex-col justify-between rounded-md border border-line bg-sunken p-4">
+        <div className="flex gap-2">
+          <div className="h-2 w-12 rounded-sm bg-raised" />
+          <div className="h-2 w-8 rounded-sm bg-raised" />
+        </div>
+        <div className="flex flex-col gap-2">
+          <div className="h-2 w-2/3 rounded-sm bg-raised" />
+          <div className="h-2 w-1/2 rounded-sm bg-raised" />
+        </div>
+        <span className="font-mono text-micro text-faint">{label}</span>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex aspect-video flex-col justify-between rounded-md border border-line bg-sunken p-4">
-      <div className="flex gap-2">
-        <div className="h-2 w-12 rounded-sm bg-raised" />
-        <div className="h-2 w-8 rounded-sm bg-raised" />
-      </div>
-      <div className="flex flex-col gap-2">
-        <div className="h-2 w-2/3 rounded-sm bg-raised" />
-        <div className="h-2 w-1/2 rounded-sm bg-raised" />
-      </div>
-      <span className="font-mono text-micro text-faint">{label}</span>
-    </div>
+    <img
+      src={`${import.meta.env.BASE_URL}screens/${file}`}
+      alt={alt}
+      loading="lazy"
+      onError={() => setMissing(true)}
+      className="aspect-video w-full rounded-md border border-line bg-sunken object-cover object-left-top"
+    />
   );
 }
 
@@ -249,7 +273,7 @@ export default function Landing() {
         <div className="grid gap-8 md:grid-cols-3">
           {steps.map((step, index) => (
             <div key={step.id} className="flex flex-col gap-4">
-              <ScreenshotSlot label={step.shot} />
+              <Screenshot file={step.file} alt={step.alt} label={step.shot} />
               <div className="flex flex-col gap-2">
                 <span className="font-mono text-micro text-faint">
                   0{index + 1} {step.label}
@@ -345,7 +369,7 @@ export default function Landing() {
                 <h3 className="text-h3 font-medium">{use.title}</h3>
                 <p className="text-dim">{use.body}</p>
               </div>
-              <div className="flex flex-col gap-3 rounded-md border border-line bg-surface p-4">
+              <div className="flex flex-1 flex-col gap-3 rounded-md border border-line bg-surface p-4">
                 {use.turns.map((turn) =>
                   turn.role === 'visitor' ? (
                     <p
