@@ -156,7 +156,7 @@ export default function Playground() {
       </div>
 
       <div className="flex min-h-0 flex-1 gap-6 max-md:flex-col max-md:overflow-y-auto">
-        <section className="flex min-w-0 flex-1 flex-col rounded-md border border-line bg-surface max-md:min-h-preview">
+        <section className="flex min-h-0 min-w-0 flex-1 flex-col rounded-md border border-line bg-surface max-md:min-h-pane">
           <ChatThread
             messages={messages}
             stage={stage}

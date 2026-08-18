@@ -13,7 +13,7 @@ export function Composer({ onSend, busy }: { onSend: (question: string) => void;
   }
 
   return (
-    <div className="flex items-end gap-3 border-t border-line bg-bg p-4">
+    <div className="flex shrink-0 items-end gap-3 border-t border-line bg-bg p-4">
       <textarea
         rows={1}
         value={value}

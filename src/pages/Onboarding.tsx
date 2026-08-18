@@ -130,15 +130,16 @@ export default function Onboarding() {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="shrink-0 border-b border-line">
-        <div className="mx-auto flex h-16 max-w-flow items-center gap-6 px-6">
+        <div className="mx-auto flex h-16 max-w-container items-center gap-6 px-6">
           <Link to="/" className="font-mono text-sm text-text">
             frontdesk<span className="text-amber-dim">_</span>
           </Link>
-          <div className="flex flex-wrap items-center gap-3 font-mono text-micro">
+          <div className="hidden items-center gap-3 font-mono text-micro md:flex">
             {steps.map((label, index) => (
               <span
                 key={label}
                 className={cn(
+                  'whitespace-nowrap',
                   index + 1 === step ? 'text-amber' : index + 1 < step ? 'text-dim' : 'text-faint',
                 )}
               >
@@ -147,6 +148,10 @@ export default function Onboarding() {
               </span>
             ))}
           </div>
+
+          <span className="whitespace-nowrap font-mono text-micro text-amber md:hidden">
+            0{step} {steps[step - 1]}
+          </span>
           {step > 1 && (
             <Link
               to="/app"
