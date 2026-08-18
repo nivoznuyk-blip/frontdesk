@@ -200,13 +200,15 @@ export default function Onboarding() {
                 </div>
 
                 <div className="flex h-32 flex-col justify-end gap-1 overflow-hidden rounded-sm border border-line bg-sunken p-3">
-                  {lines.slice(-6).map((line, index, visible) => (
+                  {lines.slice(-5).map((line, index, visible) => (
                     <span
                       key={`${line}-${index}`}
                       className={cn(
-                        // w-full + min-w-0: a flex item keeps its full text width otherwise,
-                        // so the ellipsis never fires and the parent clips it mid-character.
-                        'w-full min-w-0 truncate font-mono text-micro',
+                        // shrink-0: truncate sets overflow:hidden, which lets a flex item
+                        // shrink to nothing vertically — the lines squash as the list fills.
+                        // w-full + min-w-0: without them the item keeps its full text width,
+                        // so the ellipsis never fires and the parent clips mid-character.
+                        'w-full min-w-0 shrink-0 truncate font-mono text-micro',
                         index === visible.length - 1 ? 'text-dim' : 'text-faint',
                       )}
                     >
