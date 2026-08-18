@@ -1,4 +1,5 @@
-import { Route, Routes } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { AppShell } from '@/components/layout/AppShell';
 import { MarketingLayout } from '@/components/layout/MarketingLayout';
 import KitchenSink from '@/pages/KitchenSink';
@@ -16,32 +17,48 @@ import Playground from '@/pages/app/Playground';
 import Settings from '@/pages/app/Settings';
 import Sources from '@/pages/app/Sources';
 import WidgetBuilder from '@/pages/app/WidgetBuilder';
+import { useRouteMotion } from '@/lib/motion';
 
 export default function App() {
+  const location = useLocation();
+  const routeMotion = useRouteMotion();
+
+  /**
+   * Everything inside /app is one key, so moving between app screens animates
+   * the content pane in AppShell and leaves the shell itself still. Every other
+   * route change animates the whole page, including going from a marketing page
+   * into onboarding, which crosses layouts.
+   */
+  const group = location.pathname.startsWith('/app') ? 'app' : location.pathname;
+
   return (
-    <Routes>
-      <Route element={<MarketingLayout />}>
-        <Route path="/" element={<Landing />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/docs" element={<Docs />} />
-        <Route path="/docs/:slug" element={<Docs />} />
-        <Route path="/changelog" element={<Changelog />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div key={group} {...routeMotion}>
+        <Routes location={location}>
+          <Route element={<MarketingLayout />}>
+            <Route path="/" element={<Landing />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/docs" element={<Docs />} />
+            <Route path="/docs/:slug" element={<Docs />} />
+            <Route path="/changelog" element={<Changelog />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
 
-      <Route path="/widget-demo" element={<WidgetDemo />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/start" element={<Onboarding />} />
-      <Route path="/kitchen-sink" element={<KitchenSink />} />
+          <Route path="/widget-demo" element={<WidgetDemo />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/start" element={<Onboarding />} />
+          <Route path="/kitchen-sink" element={<KitchenSink />} />
 
-      <Route path="/app" element={<AppShell />}>
-        <Route index element={<Playground />} />
-        <Route path="sources" element={<Sources />} />
-        <Route path="inbox" element={<Inbox />} />
-        <Route path="widget" element={<WidgetBuilder />} />
-        <Route path="insights" element={<Insights />} />
-        <Route path="settings" element={<Settings />} />
-      </Route>
-    </Routes>
+          <Route path="/app" element={<AppShell />}>
+            <Route index element={<Playground />} />
+            <Route path="sources" element={<Sources />} />
+            <Route path="inbox" element={<Inbox />} />
+            <Route path="widget" element={<WidgetBuilder />} />
+            <Route path="insights" element={<Insights />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
+        </Routes>
+      </motion.div>
+    </AnimatePresence>
   );
 }

@@ -435,7 +435,7 @@ export default function Landing() {
               const line = index < comparison.length - 1 ? 'border-b border-line' : '';
               return (
                 <Fragment key={row.id}>
-                  <div className={cn('p-6 text-sm text-dim', line)}>{row.need}</div>
+                  <div className={cn('p-6 text-sm text-text', line)}>{row.need}</div>
                   <div className={cn('border-l border-line p-6 text-sm text-faint', line)}>
                     {row.chatgpt}
                   </div>
