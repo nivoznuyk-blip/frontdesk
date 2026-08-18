@@ -421,7 +421,7 @@ export default function Landing() {
             reads down one column instead of across four rows. */}
         <div className="overflow-hidden rounded-md border border-line">
           <div className="grid grid-cols-3">
-            <div className="border-b border-line p-6 font-mono text-micro text-faint">
+            <div className="border-b border-line p-6 font-mono text-micro text-dim">
               what you need
             </div>
             <div className="border-b border-l border-line p-6 font-mono text-micro text-faint">

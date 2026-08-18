@@ -187,21 +187,6 @@ export default function Pricing() {
         <Table columns={columns} rows={rows} rowKey={(row) => row.id} />
       </section>
 
-      <section className="flex flex-wrap items-center justify-between gap-6 border-t border-line pt-12">
-        <div className="flex flex-col gap-2">
-          <span className="font-mono text-micro text-faint">enterprise</span>
-          <p className="max-w-measure text-dim">
-            More than 10 bots, a review of our security posture, or an invoice your finance team can
-            process? That is a conversation, not a plan.
-          </p>
-        </div>
-        <a
-          href="mailto:hello@frontdesk.io"
-          className="shrink-0 text-lg text-text underline decoration-line-strong underline-offset-4 transition hover:decoration-amber"
-        >
-          Talk to us
-        </a>
-      </section>
 
       <section className="flex flex-col gap-4">
         <h2 className="text-h2 font-medium">What counts as an answer</h2>
@@ -228,6 +213,21 @@ export default function Pricing() {
         </dl>
       </section>
 
+      <section className="flex flex-wrap items-center justify-between gap-6 border-t border-line pt-12">
+        <div className="flex flex-col gap-2">
+          <span className="font-mono text-micro text-faint">enterprise</span>
+          <p className="max-w-measure text-dim">
+            More than 10 bots, a review of our security posture, or an invoice your finance team can
+            process? That is a conversation, not a plan.
+          </p>
+        </div>
+        <a
+          href="mailto:hello@frontdesk.io"
+          className="shrink-0 text-lg text-text underline decoration-line-strong underline-offset-4 transition hover:decoration-amber"
+        >
+          Talk to us
+        </a>
+      </section>
     </Container>
   );
 }
