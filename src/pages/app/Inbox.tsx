@@ -10,6 +10,8 @@ import type { Conversation, Device } from '@/mock/conversations';
 import { relative } from '@/lib/format';
 import { delay } from '@/lib/delay';
 import { cn } from '@/lib/cn';
+import { useTitle } from '@/lib/useTitle';
+import { DesktopOnly } from '@/components/layout/DesktopOnly';
 
 const deviceIcon: Record<Device, typeof Monitor> = {
   desktop: Monitor,
@@ -27,6 +29,7 @@ const filters = [
 const DAY = 24 * 60 * 60 * 1000;
 
 export default function Inbox() {
+  useTitle('Inbox');
   const toast = useToast();
   const plan = plans[usePlan((state) => state.plan)];
 
@@ -89,6 +92,7 @@ export default function Inbox() {
   }
 
   return (
+    <DesktopOnly screen="The inbox">
     <div className="flex min-h-0 flex-1 flex-col gap-4">
       <div className="flex shrink-0 flex-wrap items-baseline justify-between gap-4">
         <h1 className="text-h2 font-medium">Inbox</h1>
@@ -247,5 +251,6 @@ export default function Inbox() {
         </div>
       </div>
     </div>
+    </DesktopOnly>
   );
 }

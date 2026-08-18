@@ -2,7 +2,7 @@ import { BarChart3, Code2, Database, Inbox, MessageSquare, Settings } from 'luci
 import { Link, NavLink } from 'react-router-dom';
 import { cn } from '@/lib/cn';
 
-const sections = [
+export const appSections = [
   { to: '/app', label: 'Playground', icon: MessageSquare, end: true },
   { to: '/app/sources', label: 'Sources', icon: Database, end: false },
   { to: '/app/inbox', label: 'Inbox', icon: Inbox, end: false },
@@ -13,7 +13,7 @@ const sections = [
 
 export function AppSidebar() {
   return (
-    <aside className="flex w-sidebar shrink-0 flex-col border-r border-line">
+    <aside className="flex w-sidebar shrink-0 flex-col border-r border-line max-md:hidden">
       <div className="flex h-11 shrink-0 items-center border-b border-line px-4">
         <Link to="/" className="font-mono text-sm text-text">
           frontdesk<span className="text-amber-dim">_</span>
@@ -21,7 +21,7 @@ export function AppSidebar() {
       </div>
 
       <nav className="flex flex-col py-2">
-        {sections.map((section) => (
+        {appSections.map((section) => (
           <NavLink
             key={section.to}
             to={section.to}

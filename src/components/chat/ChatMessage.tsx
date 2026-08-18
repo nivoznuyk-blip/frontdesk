@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus, ThumbsDown, ThumbsUp } from 'lucide-react';
 import { Button, Textarea, useToast } from '@/components/ui';
@@ -41,6 +41,18 @@ export function ChatMessage({
   const [correcting, setCorrecting] = useState(false);
   const [draft, setDraft] = useState('');
   const toast = useToast();
+
+  // Escape backs out of whatever is open, innermost first.
+  useEffect(() => {
+    if (!openCitation && !correcting) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      if (openCitation) setOpenCitation(null);
+      else setCorrecting(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [openCitation, correcting]);
 
   if (message.role === 'user') {
     return (

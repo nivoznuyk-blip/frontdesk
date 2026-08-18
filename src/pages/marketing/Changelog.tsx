@@ -3,6 +3,7 @@ import { Container } from '@/components/layout/Container';
 import { changelog } from '@/mock/changelog';
 import type { ChangeKind } from '@/mock/changelog';
 import { day } from '@/lib/format';
+import { useTitle } from '@/lib/useTitle';
 
 const tone: Record<ChangeKind, 'success' | 'warning' | 'neutral'> = {
   shipped: 'success',
@@ -11,6 +12,7 @@ const tone: Record<ChangeKind, 'success' | 'warning' | 'neutral'> = {
 };
 
 export default function Changelog() {
+  useTitle('Changelog');
   return (
     <Container className="flex flex-col gap-12 py-24">
       <header className="flex flex-col gap-3">

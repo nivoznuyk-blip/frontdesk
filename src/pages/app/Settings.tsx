@@ -14,8 +14,11 @@ import { apiKey, invoices, team, usage } from '@/mock/company';
 import type { Invoice, TeamMember } from '@/mock/company';
 import { count, money, percent, relative } from '@/lib/format';
 import { cn } from '@/lib/cn';
+import { useTitle } from '@/lib/useTitle';
+import { DesktopOnly } from '@/components/layout/DesktopOnly';
 
 export default function Settings() {
+  useTitle('Settings');
   const toast = useToast();
   const { plan: planId, setPlan } = usePlan();
   const plan = plans[planId];
@@ -93,6 +96,7 @@ export default function Settings() {
   ];
 
   return (
+    <DesktopOnly screen="Settings">
     <div className="flex flex-col gap-6">
       <h1 className="text-h2 font-medium">Settings</h1>
 
@@ -242,6 +246,7 @@ export default function Settings() {
         This cannot be undone.
       </Modal>
     </div>
+    </DesktopOnly>
   );
 }
 

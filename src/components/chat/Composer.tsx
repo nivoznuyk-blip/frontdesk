@@ -19,14 +19,16 @@ export function Composer({ onSend, busy }: { onSend: (question: string) => void;
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === 'Enter' && !e.shiftKey) {
+          // Enter sends, Shift+Enter breaks the line, Cmd/Ctrl+Enter sends from anywhere.
+          if (e.key === 'Enter' && (!e.shiftKey || e.metaKey || e.ctrlKey)) {
             e.preventDefault();
             send();
           }
         }}
         aria-label="Ask the bot a question"
         placeholder="Ask it the way a customer would"
-        className="flex-1 resize-none rounded-sm border border-line bg-surface px-3 py-2 text-sm text-text outline-none transition-colors duration-fast ease-std placeholder:text-faint focus:border-amber-dim"
+        title="Enter to send, Shift+Enter for a new line"
+        className="flex-1 resize-none rounded-sm border border-line bg-surface px-3 py-2 text-sm text-text transition-colors duration-fast ease-std placeholder:text-faint focus:border-amber-dim"
       />
       <Button variant="primary" onClick={send} disabled={!value.trim() || busy} iconRight={<Send size={14} />}>
         Ask

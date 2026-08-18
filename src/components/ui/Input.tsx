@@ -37,7 +37,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           id={inputId}
           aria-invalid={Boolean(error)}
           className={cn(
-            'w-full bg-transparent text-sm text-text outline-none',
+            'w-full bg-transparent text-sm text-text',
             'placeholder:text-faint',
             mono && 'font-mono',
             className,

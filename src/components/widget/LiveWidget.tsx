@@ -180,7 +180,7 @@ export function LiveWidget() {
               onKeyDown={(e) => e.key === 'Enter' && draft.trim() && ask(draft.trim())}
               aria-label="Ask a question"
               placeholder="Ask a question"
-              className="h-8 min-w-0 flex-1 rounded-sm border border-line bg-surface px-2 text-sm text-text outline-none transition-colors duration-fast ease-std placeholder:text-faint focus:border-amber-dim"
+              className="h-8 min-w-0 flex-1 rounded-sm border border-line bg-surface px-2 text-sm text-text transition-colors duration-fast ease-std placeholder:text-faint focus:border-amber-dim"
             />
             <button
               type="button"

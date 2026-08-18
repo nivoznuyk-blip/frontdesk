@@ -7,6 +7,7 @@ import {
 import type { Column } from '@/components/ui';
 import { LogLine } from '@/components/layout/LogLine';
 import { count } from '@/lib/format';
+import { useTitle } from '@/lib/useTitle';
 
 interface Source {
   id: string;
@@ -62,6 +63,7 @@ const typeScale: Array<{ name: string; cls: string }> = [
 ];
 
 export default function KitchenSink() {
+  useTitle('Kitchen sink');
   const [tab, setTab] = useState('html');
   const [strict, setStrict] = useState(70);
   const [badge, setBadge] = useState(true);

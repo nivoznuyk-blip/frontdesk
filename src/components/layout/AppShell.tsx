@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Outlet, useLocation } from 'react-router-dom';
-import { AppSidebar } from './AppSidebar';
+import { cn } from '@/lib/cn';
+import { NavLink } from 'react-router-dom';
+import { AppSidebar, appSections } from './AppSidebar';
 import { LogLine } from './LogLine';
 import { useRouteMotion } from '@/lib/motion';
 import { useLog } from '@/store/log';
@@ -31,6 +33,24 @@ export function AppShell() {
               ready
             </span>
           </header>
+
+          <nav className="flex shrink-0 gap-1 overflow-x-auto border-b border-line px-2 py-2 md:hidden">
+            {appSections.map((section) => (
+              <NavLink
+                key={section.to}
+                to={section.to}
+                end={section.end}
+                className={({ isActive }) =>
+                  cn(
+                    'flex shrink-0 items-center gap-2 rounded-sm px-3 py-2 text-sm transition',
+                    isActive ? 'bg-amber-wash text-amber' : 'text-dim',
+                  )
+                }
+              >
+                {section.label}
+              </NavLink>
+            ))}
+          </nav>
 
           <main ref={mainRef} className="min-h-0 flex-1 overflow-y-auto">
             <AnimatePresence mode="wait" initial={false}>

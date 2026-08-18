@@ -14,6 +14,8 @@ import { count, money, relative } from '@/lib/format';
 import { delay } from '@/lib/delay';
 import { sourceIcon } from '@/lib/sourceIcon';
 import { cn } from '@/lib/cn';
+import { useTitle } from '@/lib/useTitle';
+import { DesktopOnly } from '@/components/layout/DesktopOnly';
 
 const statusTone = { indexed: 'success', crawling: 'amber', failed: 'danger' } as const;
 
@@ -34,6 +36,7 @@ interface Upload {
 }
 
 export default function Sources() {
+  useTitle('Sources');
   const navigate = useNavigate();
   const toast = useToast();
   const { sources, add, remove, update } = useSources();
@@ -292,6 +295,7 @@ export default function Sources() {
   ];
 
   return (
+    <DesktopOnly screen="Sources">
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-4">
         <div className="flex items-baseline justify-between gap-6">
@@ -545,6 +549,7 @@ export default function Sources() {
         removed from the index, and this cannot be undone.
       </Modal>
     </div>
+    </DesktopOnly>
   );
 }
 

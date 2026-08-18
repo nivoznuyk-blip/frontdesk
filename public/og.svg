@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0C0B0A"/>
+  <rect x="0" y="0" width="1200" height="630" fill="none" stroke="#26241F" stroke-width="2"/>
+
+  <text x="80" y="120" font-family="ui-monospace, Menlo, monospace" font-size="26" fill="#F0EDE6">frontdesk<tspan fill="#8A6220">_</tspan></text>
+
+  <text x="80" y="270" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="68" font-weight="500" fill="#F0EDE6">Stop answering the same</text>
+  <text x="80" y="350" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="68" font-weight="500" fill="#F0EDE6">twelve questions.</text>
+
+  <text x="80" y="420" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="30" fill="#A09B90">A support bot that answers from your own docs,</text>
+  <text x="80" y="462" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="30" fill="#A09B90">and shows where every answer came from.</text>
+
+  <rect x="80" y="516" width="1040" height="1" fill="#26241F"/>
+  <text x="80" y="566" font-family="ui-monospace, Menlo, monospace" font-size="22" fill="#7D776B">14:02:11</text>
+  <text x="200" y="566" font-family="ui-monospace, Menlo, monospace" font-size="22" fill="#E5A33C">412 pages indexed</text>
+  <text x="420" y="566" font-family="ui-monospace, Menlo, monospace" font-size="22" fill="#7D776B">· 3,184 chunks</text>
+</svg>

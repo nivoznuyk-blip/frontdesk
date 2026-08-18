@@ -28,7 +28,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
           id={selectId}
           className={cn(
             'h-9 w-full appearance-none rounded-sm border border-line bg-surface',
-            'pl-3 pr-9 text-sm text-text outline-none',
+            'pl-3 pr-9 text-sm text-text',
             'transition-colors duration-fast ease-std focus:border-amber-dim',
             className,
           )}

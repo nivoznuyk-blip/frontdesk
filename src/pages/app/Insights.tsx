@@ -8,8 +8,11 @@ import { plans } from '@/mock/plans';
 import { answeredQuestions, summary, unansweredQuestions } from '@/mock/insights';
 import { count, percent, relative } from '@/lib/format';
 import { delay } from '@/lib/delay';
+import { useTitle } from '@/lib/useTitle';
+import { DesktopOnly } from '@/components/layout/DesktopOnly';
 
 export default function Insights() {
+  useTitle('Insights');
   const toast = useToast();
   const plan = plans[usePlan((state) => state.plan)];
 
@@ -51,6 +54,7 @@ export default function Insights() {
   }
 
   return (
+    <DesktopOnly screen="Insights">
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <h1 className="text-h2 font-medium">Insights</h1>
@@ -139,6 +143,7 @@ export default function Insights() {
         </ul>
       </Panel>
     </div>
+    </DesktopOnly>
   );
 }
 

@@ -6,6 +6,7 @@ import { docBySlug, docs } from '@/mock/docs';
 import type { DocArticle } from '@/mock/docs';
 import { count } from '@/lib/format';
 import { cn } from '@/lib/cn';
+import { useTitle } from '@/lib/useTitle';
 
 function Contents({ current }: { current?: DocArticle }) {
   return (
@@ -50,6 +51,7 @@ function Contents({ current }: { current?: DocArticle }) {
 export default function Docs() {
   const { slug } = useParams();
   const article = slug ? docBySlug(slug) : undefined;
+  useTitle(article ? article.title : 'Docs');
 
   if (slug && !article) {
     return (

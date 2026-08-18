@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Button, Input } from '@/components/ui';
+import { useTitle } from '@/lib/useTitle';
 
 export default function Login() {
+  useTitle('Sign in');
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
 

@@ -16,6 +16,7 @@ import { isHex } from '@/lib/contrast';
 import { useDebounced } from '@/lib/debounce';
 import { count } from '@/lib/format';
 import { cn } from '@/lib/cn';
+import { useTitle } from '@/lib/useTitle';
 
 const isEmail = (value: string) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value);
 
@@ -23,6 +24,7 @@ const isEmail = (value: string) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value);
 const clip = (text: string) => (text.length > 32 ? `${text.slice(0, 32)}…` : text);
 
 export default function WidgetBuilder() {
+  useTitle('Widget builder');
   const navigate = useNavigate();
   const { settings, set } = useWidget();
   const plan = plans[usePlan((state) => state.plan)];

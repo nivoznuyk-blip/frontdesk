@@ -4,10 +4,12 @@ import { LiveWidget } from '@/components/widget/LiveWidget';
 import { useWidget } from '@/store/widget';
 import { onAccent } from '@/lib/contrast';
 import { company } from '@/mock/company';
+import { useTitle } from '@/lib/useTitle';
 
 const nav = ['Product', 'Pricing', 'Docs', 'Company'];
 
 export default function WidgetDemo() {
+  useTitle('Widget demo');
   const accent = useWidget((state) => state.settings.accent);
 
   return (

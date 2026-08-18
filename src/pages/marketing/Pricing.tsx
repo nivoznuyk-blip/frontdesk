@@ -7,6 +7,7 @@ import { plans } from '@/mock/plans';
 import type { Plan, PlanId } from '@/mock/plans';
 import { count, money } from '@/lib/format';
 import { cn } from '@/lib/cn';
+import { useTitle } from '@/lib/useTitle';
 
 const order: PlanId[] = ['free', 'starter', 'growth'];
 
@@ -71,6 +72,7 @@ const billingFaq = [
 ];
 
 export default function Pricing() {
+  useTitle('Pricing');
   const navigate = useNavigate();
   const [annual, setAnnual] = useState(false);
 

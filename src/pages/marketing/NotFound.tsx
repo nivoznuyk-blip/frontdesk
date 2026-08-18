@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Container } from '@/components/layout/Container';
+import { useTitle } from '@/lib/useTitle';
 
 const elsewhere = [
   { to: '/docs', label: 'Docs', hint: 'Four short articles on setting a bot up' },
@@ -8,6 +9,7 @@ const elsewhere = [
 ];
 
 export default function NotFound() {
+  useTitle('Page not found');
   return (
     <Container className="flex flex-col gap-8 py-24">
       <div className="flex flex-col gap-3">

@@ -14,8 +14,10 @@ import { count } from '@/lib/format';
 import { delay } from '@/lib/delay';
 import { sourceIcon } from '@/lib/sourceIcon';
 import { cn } from '@/lib/cn';
+import { useTitle } from '@/lib/useTitle';
 
 export default function Playground() {
+  useTitle('Playground');
   const navigate = useNavigate();
   const toast = useToast();
   const sources = useSources((state) => state.sources);

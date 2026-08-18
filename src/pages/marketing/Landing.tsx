@@ -14,6 +14,7 @@ import type { PlanId } from '@/mock/plans';
 import { count, money } from '@/lib/format';
 import { cn } from '@/lib/cn';
 import { useAttentionPulse } from '@/lib/motion';
+import { useTitle } from '@/lib/useTitle';
 import type { ReactNode } from 'react';
 
 const planOrder: PlanId[] = ['free', 'starter', 'growth'];
@@ -203,6 +204,7 @@ function Screenshot({ file, alt, label }: { file: string; alt: string; label: st
 }
 
 export default function Landing() {
+  useTitle('Answers from your own docs');
   const navigate = useNavigate();
   const reduced = useReducedMotion();
   const [pulse, setPulse] = useState(false);

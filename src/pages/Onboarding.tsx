@@ -15,12 +15,14 @@ import { closestSource, matchScript } from '@/lib/match';
 import { count } from '@/lib/format';
 import { delay } from '@/lib/delay';
 import { cn } from '@/lib/cn';
+import { useTitle } from '@/lib/useTitle';
 
 const steps = ['point at your docs', 'crawl', 'ask your bot something'];
 
 const cleanUrl = (value: string) => value.trim().replace(/^https?:\/\//, '').replace(/\/$/, '');
 
 export default function Onboarding() {
+  useTitle('Set up your bot');
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const log = useLogger();
