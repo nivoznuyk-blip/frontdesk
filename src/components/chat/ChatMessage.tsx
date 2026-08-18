@@ -106,9 +106,9 @@ export function ChatMessage({
         </div>
       )}
 
+      {/* The open chip is the heading — repeating the label here said it twice. */}
       {citation && (
-        <div className="flex flex-col gap-2 rounded-md border border-line bg-surface p-4">
-          <span className="font-mono text-micro text-cite">{citation.label}</span>
+        <div className="rounded-md border border-line bg-surface p-4">
           <p className="max-w-measure text-sm text-dim">{citation.passage}</p>
         </div>
       )}

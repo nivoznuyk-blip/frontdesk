@@ -9,8 +9,14 @@ import { HeroTerminal } from '@/components/marketing/HeroTerminal';
 import { LiveDemo } from '@/components/marketing/LiveDemo';
 import { WidgetLab } from '@/components/marketing/WidgetLab';
 import { defaultWidget } from '@/mock/widget';
+import { plans } from '@/mock/plans';
+import type { PlanId } from '@/mock/plans';
+import { count, money } from '@/lib/format';
+import { cn } from '@/lib/cn';
 import { EASE } from '@/lib/motion';
 import type { ReactNode } from 'react';
+
+const planOrder: PlanId[] = ['free', 'starter', 'growth'];
 
 const steps = [
   {
@@ -43,6 +49,102 @@ const capabilities = [
   { title: 'Gap analysis', body: 'The questions it could not answer, ranked by how often they came.' },
   { title: 'Lead capture', body: 'Ask for an address before or after the first answer.' },
   { title: 'Human handoff', body: 'A visitor who wants a person gets one, with the transcript.' },
+];
+
+const uses = [
+  {
+    id: 'support',
+    label: 'customer support',
+    title: 'On your website',
+    body: 'The twelve questions your inbox is full of, answered before they reach a person.',
+    turns: [
+      { role: 'visitor', text: 'Do you offer refunds?' },
+      {
+        role: 'bot',
+        text: 'Within 14 days of a charge, in full. Write to billing@acmecloud.com with the invoice number and it goes back the same way it came.',
+      },
+    ],
+  },
+  {
+    id: 'internal',
+    label: 'internal helpdesk',
+    title: 'For your own team',
+    body: 'The handbook nobody reads, answering for itself in the channel where people ask.',
+    turns: [
+      { role: 'visitor', text: 'How much notice do I need for holiday?' },
+      {
+        role: 'bot',
+        text: 'Two weeks for up to five days, a month for anything longer. Your manager approves it in the people portal.',
+      },
+    ],
+  },
+  {
+    id: 'in-product',
+    label: 'in-product help',
+    title: 'Next to the thing being used',
+    body: 'Answers where the confusion happens, instead of in a tab someone has to go and find.',
+    turns: [
+      { role: 'visitor', text: 'Why is my import stuck?' },
+      {
+        role: 'bot',
+        text: 'Imports over 50 MB queue behind smaller ones. If it has been going more than 15 minutes, cancel it and split the file.',
+      },
+    ],
+  },
+];
+
+const comparison = [
+  {
+    id: 'knows',
+    need: 'Knows your documentation',
+    chatgpt: 'Only what it was trained on, which does not include your pages',
+    frontdesk: 'Indexes the sources you connect, and re-reads them daily',
+  },
+  {
+    id: 'shows',
+    need: 'Shows where an answer came from',
+    chatgpt: 'No passage to check',
+    frontdesk: 'Every answer carries the passages it was written from',
+  },
+  {
+    id: 'lives',
+    need: 'Sits where your customers already are',
+    chatgpt: 'A separate site they have to think to visit',
+    frontdesk: 'A widget in the corner of your own pages',
+  },
+  {
+    id: 'learns',
+    need: 'Tells you what it could not answer',
+    chatgpt: 'The conversation ends and you never see it',
+    frontdesk: 'Unanswered questions ranked, with a place to write the answer',
+  },
+];
+
+const faq = [
+  {
+    q: 'Where does my data go?',
+    a: 'Into the region you pick when you create the workspace, and nowhere else. Your documents are used to answer your visitors, not to train a model that anyone else benefits from.',
+  },
+  {
+    q: 'What languages does it handle?',
+    a: 'It answers in the language the question was asked in, from sources in any language. A visitor writing in German gets German, even when your docs are in English — the citation still points at the English passage.',
+  },
+  {
+    q: 'What happens when it does not know?',
+    a: 'It says so, names the closest document it has, and offers to take an answer from you. It does not improvise, and the question goes onto the list of gaps in Insights.',
+  },
+  {
+    q: 'Can I turn it off?',
+    a: 'Remove the script tag and it is gone from your site immediately. Your sources and conversations stay in the workspace until you delete them.',
+  },
+  {
+    q: 'Who can see the conversations?',
+    a: 'Anyone you invite to the workspace, in the roles you give them. Visitors see only their own conversation, and it is not shown to anyone else who visits.',
+  },
+  {
+    q: 'How long does setup take?',
+    a: 'The crawl of a normal help centre runs in under a minute, and the embed is one script tag. Most of the time goes on the part worth doing: reading the first answers and correcting the ones that are wrong.',
+  },
 ];
 
 function Section({ id, children }: { id?: string; children: ReactNode }) {
@@ -225,6 +327,151 @@ export default function Landing() {
               <p className="text-sm text-dim">{item.body}</p>
             </div>
           ))}
+        </div>
+      </Section>
+      {/* 7 — three uses */}
+      <Section>
+        <div className="flex flex-col gap-3">
+          <h2 className="text-h2 font-medium">Three places people put it</h2>
+          <p className="max-w-measure text-lg text-dim">
+            The same bot with a different audience. What changes is the material you point it at.
+          </p>
+        </div>
+        <div className="grid gap-8 md:grid-cols-3">
+          {uses.map((use) => (
+            <div key={use.id} className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <span className="font-mono text-micro text-faint">{use.label}</span>
+                <h3 className="text-h3 font-medium">{use.title}</h3>
+                <p className="text-dim">{use.body}</p>
+              </div>
+              <div className="flex flex-col gap-3 rounded-md border border-line bg-surface p-4">
+                {use.turns.map((turn) =>
+                  turn.role === 'visitor' ? (
+                    <p
+                      key={turn.text}
+                      className="ml-auto max-w-bubble rounded-md bg-raised px-3 py-2 text-sm text-text"
+                    >
+                      {turn.text}
+                    </p>
+                  ) : (
+                    <p key={turn.text} className="border-l-2 border-line-strong pl-3 text-sm text-text">
+                      {turn.text}
+                    </p>
+                  ),
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* 8 — why not just ChatGPT */}
+      <Section>
+        <div className="flex flex-col gap-3">
+          <h2 className="text-h2 font-medium">Why not just ChatGPT</h2>
+          <p className="max-w-measure text-lg text-dim">
+            A fair question, and the honest answer is a narrow one. ChatGPT is better at general
+            questions than we will ever be. This is about answering from your material, in front of
+            your customers.
+          </p>
+        </div>
+
+        <div className="flex flex-col">
+          <div className="grid grid-cols-3 gap-6 border-b border-line pb-3 font-mono text-micro text-faint">
+            <span>what you need</span>
+            <span>a general chatbot</span>
+            <span>frontdesk</span>
+          </div>
+          {comparison.map((row) => (
+            <div
+              key={row.id}
+              className="grid grid-cols-3 gap-6 border-b border-line py-4 last:border-b-0"
+            >
+              <span className="text-sm text-text">{row.need}</span>
+              <span className="text-sm text-faint">{row.chatgpt}</span>
+              <span className="text-sm text-dim">{row.frontdesk}</span>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* 9 — pricing preview */}
+      <Section>
+        <div className="flex flex-wrap items-baseline justify-between gap-4">
+          <h2 className="text-h2 font-medium">Pricing</h2>
+          <Link
+            to="/pricing"
+            className="font-mono text-micro text-faint transition-colors duration-fast ease-std hover:text-dim"
+          >
+            all the limits, side by side
+          </Link>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          {planOrder.map((id) => {
+            const plan = plans[id];
+            return (
+              <div
+                key={id}
+                className={cn(
+                  'flex flex-col gap-4 rounded-md border bg-surface p-6',
+                  id === 'starter' ? 'border-amber-dim' : 'border-line',
+                )}
+              >
+                <span className="font-mono text-micro text-faint">{plan.name.toLowerCase()}</span>
+                <div className="flex items-baseline gap-2">
+                  <span className="font-mono text-h2 text-text tnum">{money(plan.price)}</span>
+                  <span className="font-mono text-micro text-faint">a month</span>
+                </div>
+                <dl className="flex flex-col gap-2 font-mono text-micro">
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-faint">answers</dt>
+                    <dd className="text-dim tnum">{count(plan.answersPerMonth)} a month</dd>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-faint">pages</dt>
+                    <dd className="text-dim tnum">{count(plan.pages)}</dd>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-faint">our badge</dt>
+                    <dd className="text-dim">{plan.removesBadge ? 'comes off' : 'stays on'}</dd>
+                  </div>
+                </dl>
+              </div>
+            );
+          })}
+        </div>
+      </Section>
+
+      {/* 10 — faq */}
+      <Section>
+        <h2 className="text-h2 font-medium">Questions we get</h2>
+        <dl className="flex flex-col">
+          {faq.map((item) => (
+            <div
+              key={item.q}
+              className="flex flex-col gap-2 border-b border-line py-6 first:pt-0 last:border-b-0"
+            >
+              <dt className="text-lg text-text">{item.q}</dt>
+              <dd className="max-w-measure text-dim">{item.a}</dd>
+            </div>
+          ))}
+        </dl>
+      </Section>
+
+      {/* 11 — closing */}
+      <Section>
+        <div className="flex flex-wrap items-center justify-between gap-6">
+          <p className="max-w-measure text-h3 font-medium">
+            Point it at your docs and see what it answers.
+          </p>
+          <Button
+            variant="primary"
+            iconRight={<ArrowRight size={14} />}
+            onClick={() => navigate('/start')}
+          >
+            Start free
+          </Button>
         </div>
       </Section>
     </div>
