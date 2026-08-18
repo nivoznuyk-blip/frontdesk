@@ -9,7 +9,7 @@ import { company } from '@/mock/company';
 /** The customer's site, sketched rather than drawn, so the widget is what reads. */
 function SiteMock() {
   return (
-    <div className="flex flex-col gap-6 p-6" aria-hidden>
+    <div className="flex min-h-0 flex-1 flex-col gap-6 p-6" aria-hidden>
       <div className="flex items-center gap-4 border-b border-line pb-4">
         <div className="h-3 w-16 rounded-sm bg-raised" />
         <div className="ml-auto flex gap-3">
@@ -39,6 +39,12 @@ function SiteMock() {
         <div className="h-12 rounded-sm bg-surface" />
         <div className="h-12 rounded-sm bg-surface" />
       </div>
+      <div className="flex min-h-0 flex-1 flex-col gap-3">
+        <div className="h-3 w-2/5 rounded-sm bg-raised" />
+        <div className="h-2 w-full rounded-sm bg-surface" />
+        <div className="h-2 w-3/4 rounded-sm bg-surface" />
+        <div className="min-h-0 flex-1 rounded-sm bg-surface" />
+      </div>
       <div className="flex items-center gap-4 border-t border-line pt-4">
         <div className="h-2 w-12 rounded-sm bg-surface" />
         <div className="h-2 w-12 rounded-sm bg-surface" />
@@ -62,8 +68,8 @@ export function WidgetPreview({
   const accentText = onAccent(settings.accent);
 
   return (
-    <div className={cn('relative overflow-hidden rounded-md border border-line bg-sunken', className)}>
-      <div className="flex h-8 items-center border-b border-line px-3">
+    <div className={cn('relative flex flex-col overflow-hidden rounded-md border border-line bg-sunken', className)}>
+      <div className="flex h-8 shrink-0 items-center border-b border-line px-3">
         <span className="font-mono text-micro text-faint">{company.domain}</span>
       </div>
 
