@@ -2,7 +2,7 @@
 
 A support bot that answers from your own documentation, and shows the passage behind every answer.
 
-**[Open the live site](https://nivoznuyk-blip.github.io/frontdesk/)** · **[Watch the walkthrough](ADD_VIDEO_LINK_HERE)**
+**[Open the live site](https://nivoznuyk-blip.github.io/frontdesk/)** · **[Watch the walkthrough](https://drive.google.com/file/d/1UYIl5QUHa5p-mpAKGYJcDMtFS1F0YQCo/view?usp=sharing)**
 
 ![The playground: a streaming answer with its citations, sources on the right](public/screens/playground.png)
 
