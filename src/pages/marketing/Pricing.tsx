@@ -216,7 +216,7 @@ export default function Pricing() {
         </p>
         <a
           href="mailto:hello@frontdesk.io"
-          className="font-mono text-micro text-cite transition-colors duration-fast ease-std hover:text-text"
+          className="font-mono text-micro text-faint transition-colors duration-fast ease-std hover:text-dim"
         >
           talk to us
         </a>

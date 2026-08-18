@@ -58,7 +58,7 @@ export default function Docs() {
         <p className="max-w-measure text-dim">
           That address does not match anything in the docs. The four articles are listed below.
         </p>
-        <Link to="/docs" className="font-mono text-micro text-cite">
+        <Link to="/docs" className="font-mono text-micro text-faint transition-colors duration-fast ease-std hover:text-dim">
           back to the docs
         </Link>
       </Container>
@@ -130,7 +130,7 @@ export default function Docs() {
                       </span>
                     </span>
                     <span className="max-w-measure text-dim">{item.summary}</span>
-                    <span className="flex items-center gap-2 font-mono text-micro text-cite">
+                    <span className="flex items-center gap-2 font-mono text-micro text-faint transition-colors duration-fast ease-std group-hover:text-text">
                       read it
                       <ArrowRight size={12} aria-hidden />
                     </span>

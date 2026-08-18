@@ -138,7 +138,7 @@ export default function Inbox() {
                     {c.rating === 'down' && <Badge tone="danger">thumbs down</Badge>}
                     {c.rating === 'up' && <Badge tone="success">thumbs up</Badge>}
                     {isUnanswered(c) && <Badge tone="warning">unanswered</Badge>}
-                    {c.email && <Badge tone="cite">left contact</Badge>}
+                    {c.email && <Badge>left contact</Badge>}
                     {c.escalated && <Badge tone="amber">escalated</Badge>}
                   </span>
                 </button>
@@ -154,7 +154,7 @@ export default function Inbox() {
               <p className="text-micro text-faint">
                 {plan.name} keeps {plan.insightsHistoryDays} days of history.
               </p>
-              <Link to="/pricing" className="font-mono text-micro text-cite">
+              <Link to="/pricing" className="font-mono text-micro text-faint transition-colors duration-fast ease-std hover:text-dim">
                 See plans
               </Link>
             </div>
@@ -179,7 +179,7 @@ export default function Inbox() {
                   </span>
                 )}
                 {open.language && <span>asked in {open.language}</span>}
-                {open.email && <span className="text-cite">{open.email}</span>}
+                {open.email && <span className="text-dim">{open.email}</span>}
               </div>
 
               <div className="flex flex-col gap-4">

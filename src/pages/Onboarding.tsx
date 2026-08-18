@@ -172,7 +172,7 @@ export default function Onboarding() {
                     Start the crawl
                   </Button>
                 </div>
-                <Link to="/app/sources" className="text-sm text-cite">
+                <Link to="/app/sources" className="text-sm text-dim transition-colors duration-fast ease-std hover:text-text">
                   or upload files instead
                 </Link>
                 <Link to="/app" className="font-mono text-micro text-faint">
