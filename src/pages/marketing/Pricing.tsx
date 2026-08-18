@@ -212,7 +212,7 @@ export default function Pricing() {
         </dl>
       </section>
 
-      <section className="flex flex-wrap items-center justify-between gap-6 rounded-md border border-line bg-surface p-8">
+      <section className="flex flex-wrap items-center justify-between gap-6 border-t border-line pt-12">
         <div className="flex flex-col gap-2">
           <span className="font-mono text-micro text-faint">enterprise</span>
           <p className="max-w-measure text-dim">
@@ -222,7 +222,7 @@ export default function Pricing() {
         </div>
         <a
           href="mailto:hello@frontdesk.io"
-          className="inline-flex h-9 shrink-0 items-center rounded-sm border border-line-strong px-4 text-sm font-medium text-text transition hover:bg-raised active:scale-press"
+          className="shrink-0 text-lg text-text underline decoration-line-strong underline-offset-4 transition hover:decoration-amber"
         >
           Talk to us
         </a>

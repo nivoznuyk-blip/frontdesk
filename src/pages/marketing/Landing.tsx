@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import { Button, Table } from '@/components/ui';
+import { ArrowRight, Database, ListChecks, MailOpen, Quote, SearchX, UserRound } from 'lucide-react';
+import { Button } from '@/components/ui';
 import { Container } from '@/components/layout/Container';
 import { WidgetLauncher } from '@/components/widget/WidgetLauncher';
 import { HeroTerminal } from '@/components/marketing/HeroTerminal';
@@ -49,12 +49,12 @@ const steps = [
 ];
 
 const capabilities = [
-  { title: 'Sources', body: 'Crawls, files, written answers and Notion, in one index.' },
-  { title: 'Citations', body: 'Every answer carries the passages it was written from.' },
-  { title: 'Answer review', body: 'Thumbs down lands in a queue, and the fix becomes a source.' },
-  { title: 'Gap analysis', body: 'The questions it could not answer, ranked by how often they came.' },
-  { title: 'Lead capture', body: 'Ask for an address before or after the first answer.' },
-  { title: 'Human handoff', body: 'A visitor who wants a person gets one, with the transcript.' },
+  { icon: Database, title: 'Sources', body: 'Crawls, files, written answers and Notion, in one index.' },
+  { icon: Quote, title: 'Citations', body: 'Every answer carries the passages it was written from.' },
+  { icon: ListChecks, title: 'Answer review', body: 'Thumbs down lands in a queue, and the fix becomes a source.' },
+  { icon: SearchX, title: 'Gap analysis', body: 'The questions it could not answer, ranked by how often they came.' },
+  { icon: MailOpen, title: 'Lead capture', body: 'Ask for an address before or after the first answer.' },
+  { icon: UserRound, title: 'Human handoff', body: 'A visitor who wants a person gets one, with the transcript.' },
 ];
 
 const uses = [
@@ -357,11 +357,13 @@ export default function Landing() {
       <Section>
         <h2 className="text-h2 font-medium">What it does</h2>
         <div className="grid gap-px border border-line bg-line md:grid-cols-3">
-          {capabilities.map((item, index) => (
-            <div key={item.title} className="flex flex-col gap-3 bg-bg p-6">
-              <span className="font-mono text-micro text-faint tnum">0{index + 1}</span>
-              <h3 className="text-base font-medium text-text">{item.title}</h3>
-              <p className="text-sm text-dim">{item.body}</p>
+          {capabilities.map((item) => (
+            <div key={item.title} className="flex gap-4 bg-bg p-6">
+              <item.icon size={16} aria-hidden className="mt-1 shrink-0 text-faint" />
+              <div className="flex flex-col gap-1">
+                <h3 className="text-base font-medium text-text">{item.title}</h3>
+                <p className="text-sm text-dim">{item.body}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -382,21 +384,19 @@ export default function Landing() {
                 <h3 className="text-h3 font-medium">{use.title}</h3>
                 <p className="text-dim">{use.body}</p>
               </div>
-              <div className="flex flex-1 flex-col gap-3 rounded-md border border-line bg-surface p-4">
-                {use.turns.map((turn) =>
-                  turn.role === 'visitor' ? (
-                    <p
-                      key={turn.text}
-                      className="ml-auto max-w-bubble rounded-md bg-raised px-3 py-2 text-sm text-text"
-                    >
-                      {turn.text}
-                    </p>
-                  ) : (
-                    <p key={turn.text} className="border-l-2 border-line-strong pl-3 text-sm text-text">
-                      {turn.text}
-                    </p>
-                  ),
-                )}
+              <div className="flex flex-1 flex-col gap-4 border-t border-line pt-4">
+                {use.turns.map((turn) => (
+                  <div key={turn.text} className="flex flex-col gap-2">
+                    <span className="font-mono text-micro text-faint">
+                      {turn.role === 'visitor' ? 'a visitor asks' : 'the bot answers'}
+                    </span>
+                    {turn.role === 'visitor' ? (
+                      <p className="rounded-md bg-raised px-3 py-2 text-sm text-text">{turn.text}</p>
+                    ) : (
+                      <p className="border-l-2 border-line-strong pl-3 text-sm text-text">{turn.text}</p>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           ))}
@@ -414,30 +414,37 @@ export default function Landing() {
           </p>
         </div>
 
-        <Table
-          columns={[
-            {
-              key: 'need',
-              header: 'what you need',
-              width: '30%',
-              render: (row: Comparison) => <span className="text-sm text-text">{row.need}</span>,
-            },
-            {
-              key: 'chatgpt',
-              header: 'a general chatbot',
-              width: '35%',
-              render: (row: Comparison) => <span className="text-sm text-faint">{row.chatgpt}</span>,
-            },
-            {
-              key: 'frontdesk',
-              header: 'frontdesk',
-              width: '35%',
-              render: (row: Comparison) => <span className="text-sm text-dim">{row.frontdesk}</span>,
-            },
-          ]}
-          rows={comparison}
-          rowKey={(row) => row.id}
-        />
+        {/* Hand-built rather than <Table>: the frontdesk column carries its own
+            weight — an accent header and a lighter ground — so the comparison
+            reads down one column instead of across four rows. */}
+        <div className="overflow-hidden rounded-md border border-line">
+          <div className="grid grid-cols-3">
+            <div className="border-b border-line p-6 font-mono text-micro text-faint">
+              what you need
+            </div>
+            <div className="border-b border-l border-line p-6 font-mono text-micro text-faint">
+              a general chatbot
+            </div>
+            <div className="border-b border-l border-line bg-surface p-6 font-mono text-micro text-amber">
+              frontdesk
+            </div>
+
+            {comparison.map((row, index) => {
+              const line = index < comparison.length - 1 ? 'border-b border-line' : '';
+              return (
+                <Fragment key={row.id}>
+                  <div className={cn('p-6 text-sm text-text', line)}>{row.need}</div>
+                  <div className={cn('border-l border-line p-6 text-sm text-faint', line)}>
+                    {row.chatgpt}
+                  </div>
+                  <div className={cn('border-l border-line bg-surface p-6 text-sm text-dim', line)}>
+                    {row.frontdesk}
+                  </div>
+                </Fragment>
+              );
+            })}
+          </div>
+        </div>
       </Section>
 
       {/* 9 — pricing preview */}
@@ -509,7 +516,7 @@ export default function Landing() {
 
       {/* 11 — closing */}
       <Section>
-        <div className="flex flex-wrap items-center justify-between gap-6 rounded-md border border-line bg-surface p-8">
+        <div className="flex flex-wrap items-center justify-between gap-6">
           <p className="max-w-measure text-h3 font-medium">
             Point it at your docs and see what it answers.
           </p>
