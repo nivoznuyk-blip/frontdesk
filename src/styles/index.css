@@ -56,7 +56,8 @@
     height: 4px;
     background: var(--border);
     border-radius: 2px;
-    outline: none;
+    /* No outline reset here: the focus ring in @layer base is the one thing
+       every interactive element must keep. */
   }
   .fd-range::-webkit-slider-thumb {
     -webkit-appearance: none;
