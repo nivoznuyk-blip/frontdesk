@@ -204,7 +204,9 @@ export default function Onboarding() {
                     <span
                       key={`${line}-${index}`}
                       className={cn(
-                        'truncate font-mono text-micro',
+                        // w-full + min-w-0: a flex item keeps its full text width otherwise,
+                        // so the ellipsis never fires and the parent clips it mid-character.
+                        'w-full min-w-0 truncate font-mono text-micro',
                         index === visible.length - 1 ? 'text-dim' : 'text-faint',
                       )}
                     >
