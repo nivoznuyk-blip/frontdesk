@@ -28,11 +28,14 @@ export function ChatMessage({
   onRate,
   onCorrect,
   onStreamDone,
+  showActions = true,
 }: {
   message: Message;
   onRate: (id: string, rating: 'up' | 'down') => void;
   onCorrect: (id: string) => void;
   onStreamDone: () => void;
+  /** Off during onboarding: rating and fixing are an operator's job, not a visitor's. */
+  showActions?: boolean;
 }) {
   const [openCitation, setOpenCitation] = useState<string | null>(null);
   const [correcting, setCorrecting] = useState(false);
@@ -110,6 +113,7 @@ export function ChatMessage({
         </div>
       )}
 
+      {showActions && (
       <div className="flex items-center gap-2">
         <Button
           size="sm"
@@ -141,6 +145,7 @@ export function ChatMessage({
           </span>
         )}
       </div>
+      )}
 
       {correcting && (
         <div className="flex flex-col gap-3 rounded-md border border-line bg-surface p-4">

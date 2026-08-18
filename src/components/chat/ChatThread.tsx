@@ -22,6 +22,7 @@ export function ChatThread({
   onRate,
   onCorrect,
   header,
+  showActions = true,
 }: {
   messages: Message[];
   stage: Stage | null;
@@ -29,6 +30,7 @@ export function ChatThread({
   onRate: (id: string, rating: 'up' | 'down') => void;
   onCorrect: (id: string) => void;
   header?: ReactNode;
+  showActions?: boolean;
 }) {
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -58,6 +60,7 @@ export function ChatThread({
           onRate={onRate}
           onCorrect={onCorrect}
           onStreamDone={scrollToEnd}
+          showActions={showActions}
         />
       ))}
 
